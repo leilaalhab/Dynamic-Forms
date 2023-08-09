@@ -15,6 +15,9 @@ namespace DynamicForms.Data
         public DbSet<Input> Inputs => Set<Input>();
         public DbSet<Choice> Choices => Set<Choice>();
         public DbSet<Step> Steps => Set<Step>();
+        public DbSet<Requirement> Requirements => Set<Requirement>();
+        public DbSet<Condition> Conditions => Set<Condition>();
+        
     }
 }
 

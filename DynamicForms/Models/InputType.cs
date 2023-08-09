@@ -13,7 +13,7 @@ namespace DynamicForms.Models
 		DateTime,
 		Radio,
 		Checkbox,
-		Option,
+		Options
 	}
 }
 

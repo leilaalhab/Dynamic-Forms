@@ -6,8 +6,22 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+
+  
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+ 
+
+   <ItemGroup>
+    <Protobuf Include="Protos\form.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.20.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="BenchmarkDotNet" Version="0.13.6" />
@@ -37,6 +51,8 @@
     <None Remove="Services\InputService\" />
     <None Remove="Services\StepService\" />
     <None Remove="Filter\" />
+    <None Remove="Protos\connect.proto" />
+    <None Remove="Protos\boz.proto" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -54,4 +70,5 @@
     <Folder Include="Services\StepService\" />
     <Folder Include="Filter\" />
   </ItemGroup>
+
 </Project>
