@@ -8,10 +8,12 @@ namespace DynamicForms.Models
 	{
 		Text,
 		Integer,
+		Double,
 		Float,
 		DateTime,
 		Radio,
-		Checkbox
+		Checkbox,
+		Option,
 	}
 }
 

@@ -3,6 +3,7 @@ global using DynamicForms.Dtos.Choice;
 global using DynamicForms.Dtos.Step;
 global using DynamicForms.Dtos.Input;
 global using DynamicForms.Dtos.Form;
+global using DynamicForms.Dtos.Formula;
 global using DynamicForms.Data;
 
 global using AutoMapper;
@@ -14,12 +15,15 @@ using DynamicForms.Services.ChoiceService;
 using DynamicForms.Services.FormService;
 using DynamicForms.Services.InputService;
 using DynamicForms.Services.StepService;
+using DynamicForms.Services.FormulaService;
 
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<DynamicFormsDatabaseSettings>(
+    builder.Configuration.GetSection("DynamicFormsMDB"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -31,7 +35,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHttpContextAccessor();
 
-
+builder.Services.AddScoped<IFormulaService, FormulaService>();
 builder.Services.AddScoped<IChoiceService, ChoiceService>();
 builder.Services.AddScoped<IInputService, InputService>();
 builder.Services.AddScoped<IFormService, FormService>();

@@ -9,7 +9,7 @@ namespace DynamicForms.Models
 		public int Order { get; set; }
 		public string? Label { get; set; }
 		public string? Placeholder { get; set; }
-		public string Name { get; set; } = String.Empty;
+		public string Name { get; set; } = string.Empty;
 		public InputType InputType { get; set; }
 		public List<Choice>? Choices { get; set; }
 
