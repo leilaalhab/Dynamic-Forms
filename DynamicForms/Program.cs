@@ -68,4 +68,3 @@ app.MapGet("/", () => "Communication with gRPC endpoints must be made through a 
 app.MapControllers();
 
 app.Run();
-
