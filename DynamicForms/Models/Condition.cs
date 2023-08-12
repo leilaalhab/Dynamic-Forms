@@ -8,7 +8,7 @@ namespace DynamicForms.Models
     public class Condition
     {
         public int Id { get; set; }
-        public Requirement Requirement { get; set; }
+        public required Requirement Requirement { get; set; }
         public int RequirementId { get; set; }
         public int DependentInput { get; set; }
         

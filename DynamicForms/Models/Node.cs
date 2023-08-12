@@ -11,10 +11,10 @@ namespace DynamicForms.Models
   public class Node
   {
     [BsonIgnoreIfNull]
-    public double? InputId { get; set; }
+    public int? InputId { get; set; }
 
     [BsonIgnoreIfNull]
-    public double? Value { get; set; }
+    public double Value { get; set; }
 
     [BsonIgnoreIfNull]
     public Node? Left { get; set; }
@@ -24,7 +24,7 @@ namespace DynamicForms.Models
     
     public NodeType Type { get; set; }
 
-    public Node(double Value, double InputId, NodeType Type)
+    public Node(double Value, int InputId, NodeType Type)
     {
       this.Type = Type;
       this.InputId = InputId;

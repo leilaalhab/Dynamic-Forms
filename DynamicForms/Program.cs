@@ -9,6 +9,8 @@ global using DynamicForms.Data;
 global using AutoMapper;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+
 
 using DynamicForms.Services;
 using DynamicForms.Services.ChoiceService;
@@ -17,8 +19,6 @@ using DynamicForms.Services.InputService;
 using DynamicForms.Services.StepService;
 using DynamicForms.Services.FormulaService;
 
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(options =>
@@ -34,7 +34,6 @@ builder.Services.Configure<DynamicFormsDatabaseSettings>(
     builder.Configuration.GetSection("DynamicFormsMDB"));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 
@@ -47,8 +46,6 @@ builder.Services.AddScoped<IChoiceService, ChoiceService>();
 builder.Services.AddScoped<IInputService, InputService>();
 builder.Services.AddScoped<IFormService, FormService>();
 builder.Services.AddScoped<IStepService, StepService>();
-// put a consolewrite in the constructor
-// see when the grpc is being created
 
 var app = builder.Build();
 

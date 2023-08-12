@@ -50,6 +50,7 @@ enum ResponseType {
   NewInput = 1;
   FormSubmitAccepted = 2;
   FormSubmitRejected = 3;
+  Price = 4;
 }
 
 enum ErrorType {

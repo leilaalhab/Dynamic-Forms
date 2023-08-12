@@ -54,10 +54,9 @@ namespace DynamicForms.Services.FormulaService
         {
             root.Left = leftNode;
             root.Right = rightNode;
-         
         }
 
-        private static bool IsOperation(Node node)
+        public static bool IsOperation(Node node)
         {
             if (node.Type == NodeType.Addition || node.Type == NodeType.Subtraction || node.Type == NodeType.Multiplication || node.Type == NodeType.Division)
                 return true;
@@ -82,6 +81,34 @@ namespace DynamicForms.Services.FormulaService
             else
                 throw new Exception("Invalid expression.");
         }
+
+        public static void Calculate(double op1, double op2, Node operation)
+        {
+            switch (operation.Type)
+            {
+                case NodeType.Addition: 
+                operation.Value =  op2 + op1;
+                return;
+                case NodeType.Subtraction: 
+                operation.Value = op2 - op1;
+                return;
+                case NodeType.Multiplication: 
+                operation.Value =  op2 * op1;
+                return;
+                case NodeType.Division:
+                    if (op1 == 0)
+                    {
+                        operation.Value = 0;
+                        return;
+                    }
+                    operation.Value = op2 / op1;
+                    return;
+                default: throw new Exception("Invalid operation");
+            }
+        }
+
+        
+
 
     }
 }
