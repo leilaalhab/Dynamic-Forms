@@ -72,8 +72,6 @@ namespace DynamicForms.Services.ChoiceService
 
                 var choice = new Choice
                 {
-                    Input = input,
-                    InputId = input.Id,
                     Label = newChoice.Label
                 };
 

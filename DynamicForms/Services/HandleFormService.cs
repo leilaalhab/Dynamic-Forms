@@ -6,7 +6,8 @@ using Grpc.Core;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using DynamicForms.Services.FormulaService;
-
+using DynamicForms.Models.Answers;
+using System.Reflection.Emit;
 
 namespace DynamicForms.Services
 {
@@ -34,7 +35,16 @@ namespace DynamicForms.Services
             try
             {
                 var formRequest = context.RequestHeaders.FirstOrDefault(c => c.Key == "formid") ?? throw new Exception("No formId was found.");
-                SetInputs(int.Parse(formRequest.Value));
+                var progress = context.RequestHeaders.FirstOrDefault(c => c.Key == "progressid");
+
+
+                //inputs = await _context.Inputs.Include(c => c.Choices).Include(c => c.Requirements).Where(i => i.StepId == 1).ToListAsync();
+
+
+                SetInputs(int.Parse(formRequest.Value), int.Parse(progress.Value));
+
+                if (progress is not null)
+                    SetValues(int.Parse(progress.Value), int.Parse(formRequest.Value));
 
                 foreach (var input in inputs)
                 {
@@ -55,17 +65,22 @@ namespace DynamicForms.Services
                             foreach (var condition in await GetDependentInputConditions(request.Id))
                             {
                                 if (CheckCondition(condition.Requirement, request, currentInput))
-                                    await responseStream.WriteAsync(GenerateResponse(FindInputWithId(condition.DependentInput), ResponseType.NewInput));
+                                    await responseStream.WriteAsync(NewInputResponse(condition.DependentInput));
                             }
                         }
-                        await responseStream.WriteAsync(GenerateResponse(currentInput, ResponseType.InputValidity));
+                        await responseStream.WriteAsync(InputValidResponse(currentInput));
                     }
                     else
                     {
-                        await responseStream.WriteAsync(SubmitFormResponse(CheckAllInputsValidity(inputs)));
+                        await responseStream.WriteAsync(CheckSubmitForm());
+                        foreach (var InvalidInput in CheckUnchangedInputs())
+                        {
+                            await responseStream.WriteAsync(InputValidResponse(InvalidInput));
+                        }
                     }
                 }
 
+                SaveValues(int.Parse(progress.Value), int.Parse(formRequest.Value));
             }
             catch (Exception e)
             {
@@ -73,82 +88,181 @@ namespace DynamicForms.Services
             }
         }
 
-        public void SetInputs(int formId)
-        {
-            var step = _context.Steps.Include(c => c.Inputs).ThenInclude(i => i.Requirements).Where(c => c.FormId == formId).FirstOrDefault() ?? throw new Exception($"No steps belonging to FormID {formId} were found.");
 
-            inputs = step.Inputs.Select(c => new InputWrapper
+        public Response NewInputResponse(int inputId)
+        {
+            return GenerateResponse(FindInputWithId(inputId), ResponseType.NewInput);
+        }
+        public Response InputValidResponse(InputWrapper input)
+        {
+            return GenerateResponse(input, ResponseType.InputValidity);
+        }
+        public Response CheckSubmitForm()
+        {
+            return SubmitFormResponse(CheckAllInputsValidity(inputs));
+        }
+
+        public void SaveValues(int formId, int progressid)
+        {
+
+            var textAnswers = new List<TextAnswer>();
+            var doubleAnswers = new List<DoubleAnswer>();
+            var intAnswers = new List<IntegerAnswer>();
+            foreach (var input in inputs)
+            {
+                var dbInput = _context.Inputs.FirstOrDefault(c => c.Id == input.Input.Id);
+                if (input.Interacted == true)
+                {
+                    if (input.Input.InputType == InpType.Text)
+                    {
+                        textAnswers.Add(new TextAnswer
+                        {
+                            InputId = input.Input.Id,
+                            ProgressId = progressid,
+                            Value = input.TextValue
+                        });
+                    }
+                    else if (input.Input.InputType == InpType.Float)
+                    {
+                        doubleAnswers.Add(new DoubleAnswer
+                        {
+                            InputId = input.Input.Id,
+                            ProgressId = progressid,
+                            Value = input.Value
+                        });
+                    }
+                    else
+                    {
+                        intAnswers.Add(new IntegerAnswer
+                        {
+                            InputId = input.Input.Id,
+                            ProgressId = progressid,
+                            Value = (int)input.Value,
+                        });
+                    }
+                }
+            }
+
+            var Progress = new Progress
+            {
+                FormId = formId,
+                StepId = formId,
+            };
+            if (textAnswers.Count != 0)
+                _context.TextAnswers.AddRangeAsync(textAnswers);
+            if (doubleAnswers.Count != 0)
+                _context.DoubleAnswers.AddRangeAsync(doubleAnswers);
+            if (intAnswers.Count != 0)
+                _context.IntegerAnswers.AddRangeAsync(intAnswers);
+
+            _context.Progresses.AddAsync(Progress);
+            _context.SaveChangesAsync();
+        }
+
+        public List<InputWrapper>? CheckUnchangedInputs()
+        {
+            var UnchangedInputs = inputs.Where(c => c.Interacted == false).ToList();
+            List<InputWrapper> InvalidInputs = new();
+            foreach (var input in UnchangedInputs)
+            {
+                foreach (var Req in input.Input.Requirements)
+                {
+                    if (!CheckRequirement(Req, input.Value, input))
+                    {
+                        InvalidInputs.Add(input);
+                        break;
+                    }
+
+                }
+            }
+            return InvalidInputs;
+        }
+
+        public Progress? GetProgress(int progressId, int formId)
+        {
+            return _context.Progresses.FirstOrDefault(c => c.Id == progressId && c.FormId == formId);
+        }
+
+        public void SetValues(int progressId, int formId)
+        {
+            var progress = GetProgress(progressId, formId);
+            if (progress is not null)
+            {
+
+                foreach (var Answer in GetAnswers(progressId))
+                {
+                    var input = inputs.FirstOrDefault(c => c.Input.Id == Answer.InputId);
+                    if (input is not null)
+                    {
+                        if (Answer.GetType().Equals(typeof(TextAnswer)))
+                            input.TextValue = ((TextAnswer)Answer).Value;
+                        else if (Answer.GetType().Equals(typeof(DoubleAnswer)))
+                            input.Value = ((DoubleAnswer)Answer).Value;
+                        else
+                            input.Value = ((IntegerAnswer)Answer).Value;
+                    }
+                }
+            }
+        }
+
+        public Answer[] GetAnswers(int progressId)
+        {
+            List<Answer> answers = new();
+
+            answers.AddRange(_context.DoubleAnswers.Where(c => c.ProgressId == progressId).ToList());
+            answers.AddRange(_context.IntegerAnswers.Where(c => c.ProgressId == progressId).ToList());
+            answers.AddRange(_context.TextAnswers.Where(c => c.ProgressId == progressId).ToList());
+
+            return answers.ToArray();
+
+        }
+        public void SetInputs(int formId, int progressId)
+        {
+            //var progress = GetProgress(progressId, formId);
+            var Inputs = _context.Inputs.Include(c => c.Choices).Include(c => c.Requirements).Where(i => i.StepId == 1).ToList();
+
+            inputs = Inputs.Select(c => new InputWrapper
             {
                 Input = c,
             }).ToArray();
+
         }
 
 
         private Stack<Node>? FindInputPath(Node root, Input input)
         {
             Stack<Node> nodes = new();
-            
-                do
+
+            do
+            {
+                nodes.Push(root);
+
+                while (!IsLeaf(root))
                 {
-                        nodes.Push(root);
+                    root = root.Left;
+                    nodes.Push(root);
+                }
 
-                    while (!IsLeaf(root))
+
+                if (NodeMatchesInput(root, input))
+                {
+                    return nodes;
+                }
+                else
+                {
+                    var temp = nodes.Pop();
+
+                    if (root.Right == temp)
                     {
-                        root = root.Left;
-                        nodes.Push(root);
+                        nodes.Pop();
                     }
-                    
+                    root = nodes.Peek().Right;
+                }
 
-                    if (NodeMatchesInput(root, input))
-                    {
-                        return nodes;
-                    }
-                    else
-                    {
-                        var temp = nodes.Pop();
+            } while (nodes.Count > 0);
 
-                        if (root.Right == temp)
-                        {
-                            nodes.Pop();
-                        }
-                        root = nodes.Peek().Right;
-                    }
-
-                } while (nodes.Count > 0);
-            
             return null;
         }
-
-        // private async Task<Node?> FindNodeOnPath(Stack<Node> nodes, Node root, Input input)
-        // {
-        //     await Task.Run(() =>
-        //     {
-        //         nodes.Push(root);
-
-        //         while (!IsLeaf(root))
-        //         {
-        //             root = root.Left;
-        //             nodes.Push(root);
-        //         }
-
-        //         if (NodeMatchesInput(root, input))
-        //         {
-        //             return null;
-        //         }
-        //         else
-        //         {
-        //             var temp = nodes.Pop();
-
-        //             if (root.Right == temp)
-        //             {
-        //                 nodes.Pop();
-        //             }
-        //             return nodes.Peek().Right;
-        //         }
-        //     });
-        //     return null;
-        // }
-
 
         public async Task<Response> SendPriceResponse(int formId, InputWrapper currentInput)
         {
@@ -168,7 +282,7 @@ namespace DynamicForms.Services
 
             if (nodes is null)
             {
-                return root.Value;
+                throw new Exception("Input Id not found.");
             }
             else
             {
@@ -226,6 +340,10 @@ namespace DynamicForms.Services
                 res.Error = input.Error;
             }
 
+            var choices = input.Input.Choices.Select(c => new SendChoice { Id = c.Id, Label = c.Label }).AsEnumerable();
+
+            res.Choices.AddRange(choices);
+
             return res;
         }
 
@@ -258,9 +376,9 @@ namespace DynamicForms.Services
 
         private bool IsInputValid(InputWrapper input, double requestValue, string requestText)
         {
-            if (input.Input.Requirements is null)
-                return true;
+            input.Interacted = true;
 
+            
             double value;
 
             if (string.IsNullOrEmpty(requestText))
@@ -271,6 +389,9 @@ namespace DynamicForms.Services
             {
                 value = requestText.Length;
             }
+
+            if (input.Input.Requirements is null) 
+                return true;
 
 
             foreach (var req in input.Input.Requirements)

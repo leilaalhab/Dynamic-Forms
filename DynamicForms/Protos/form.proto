@@ -5,7 +5,6 @@ option csharp_namespace = "DynamicForms";
 
 service CompleteForm {
   rpc HandleForm (stream Request) returns (stream Response);
-  
 }
 
 message Request {
@@ -22,12 +21,17 @@ message Response {
   string Label = 2;
   string Placeholder = 3;
   InpType InpType = 4;
-  //repeated string Choices = 5;
   ErrorType Error = 5;
   double ErrorValue = 6;
   double Value = 7;
   string TextValue = 8;
   ResponseType ResponseType = 9;
+  repeated SendChoice Choices = 10;
+}
+
+message SendChoice {
+  int32 Id = 1;
+  string Label = 2;
 }
 
 enum InpType {

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DynamicForms.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230809063751_input-updates-2")]
-    partial class inputupdates2
+    [Migration("20230813083243_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,35 @@ namespace DynamicForms.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DynamicForms.Models.Answers.Answer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InputId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProgressId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgressId");
+
+                    b.ToTable("Answer");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Answer");
+
+                    b.UseTphMappingStrategy();
+                });
 
             modelBuilder.Entity("DynamicForms.Models.Choice", b =>
                 {
@@ -91,6 +120,9 @@ namespace DynamicForms.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("DefaultValue")
+                        .HasColumnType("float");
+
                     b.Property<int>("InputType")
                         .HasColumnType("int");
 
@@ -118,6 +150,25 @@ namespace DynamicForms.Migrations
                     b.HasIndex("StepId");
 
                     b.ToTable("Inputs");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Progress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FormId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StepId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Progresses");
                 });
 
             modelBuilder.Entity("DynamicForms.Models.Requirement", b =>
@@ -169,15 +220,43 @@ namespace DynamicForms.Migrations
                     b.ToTable("Steps");
                 });
 
+            modelBuilder.Entity("DynamicForms.Models.Answers.DoubleAnswer", b =>
+                {
+                    b.HasBaseType("DynamicForms.Models.Answers.Answer");
+
+                    b.Property<double>("DoubleValue")
+                        .HasColumnType("float");
+
+                    b.HasDiscriminator().HasValue("DoubleAnswer");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Answers.TextAnswer", b =>
+                {
+                    b.HasBaseType("DynamicForms.Models.Answers.Answer");
+
+                    b.Property<string>("TextValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("TextAnswer");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Answers.Answer", b =>
+                {
+                    b.HasOne("DynamicForms.Models.Progress", null)
+                        .WithMany("Answers")
+                        .HasForeignKey("ProgressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DynamicForms.Models.Choice", b =>
                 {
-                    b.HasOne("DynamicForms.Models.Input", "Input")
+                    b.HasOne("DynamicForms.Models.Input", null)
                         .WithMany("Choices")
                         .HasForeignKey("InputId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Input");
                 });
 
             modelBuilder.Entity("DynamicForms.Models.Condition", b =>
@@ -232,6 +311,11 @@ namespace DynamicForms.Migrations
                     b.Navigation("Choices");
 
                     b.Navigation("Requirements");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Progress", b =>
+                {
+                    b.Navigation("Answers");
                 });
 
             modelBuilder.Entity("DynamicForms.Models.Step", b =>

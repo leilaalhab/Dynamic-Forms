@@ -14,6 +14,7 @@ namespace DynamicForms.Models
 		public bool IsVisible { get; set; }
 		public List<Requirement>? Requirements { get; set; }
 		public List<Choice>? Choices { get; set; }
+		public double DefaultValue { get; set; }
 
 	}
 }

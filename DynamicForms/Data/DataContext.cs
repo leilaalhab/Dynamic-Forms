@@ -1,6 +1,8 @@
 ﻿using System;
 using DynamicForms.Models;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
+using DynamicForms.Models.Answers;
 
 
 namespace DynamicForms.Data
@@ -17,6 +19,11 @@ namespace DynamicForms.Data
         public DbSet<Step> Steps => Set<Step>();
         public DbSet<Requirement> Requirements => Set<Requirement>();
         public DbSet<Condition> Conditions => Set<Condition>();
+        public DbSet<Progress> Progresses => Set<Progress>();
+        public DbSet<TextAnswer> TextAnswers => Set<TextAnswer>();
+        public DbSet<DoubleAnswer> DoubleAnswers => Set<DoubleAnswer>();
+        public DbSet<IntegerAnswer> IntegerAnswers => Set<IntegerAnswer>();
+        
         
     }
 }
