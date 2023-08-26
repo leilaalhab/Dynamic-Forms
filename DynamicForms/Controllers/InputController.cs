@@ -19,7 +19,7 @@ namespace DynamicForms.Controllers
         [Route("GetAll")]
         public async Task<ActionResult<PagedServiceResponse<GetInputDto>>> GetAllInputs([FromQuery] PaginationFilter filter)
         {
-            var response = await _InputService.GetAllInputs(filter);
+            var response = await _InputService.GetAllInputs();
             if (response.Success)
             {
                 return Ok(response); 

@@ -21,6 +21,82 @@ namespace DynamicForms.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DynamicForms.Models.Answers.DoubleAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("InputId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProgressId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DoubleAnswers");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Answers.IntegerAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("InputId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProgressId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IntegerAnswers");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Answers.TextAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("InputId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProgressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TextAnswers");
+                });
+
             modelBuilder.Entity("DynamicForms.Models.Choice", b =>
                 {
                     b.Property<int>("Id")
@@ -40,6 +116,27 @@ namespace DynamicForms.Migrations
                     b.HasIndex("InputId");
 
                     b.ToTable("Choices");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Condition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DependentInput")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequirementId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequirementId");
+
+                    b.ToTable("Conditions");
                 });
 
             modelBuilder.Entity("DynamicForms.Models.Form", b =>
@@ -67,8 +164,14 @@ namespace DynamicForms.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("DefaultValue")
+                        .HasColumnType("float");
+
                     b.Property<int>("InputType")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Label")
                         .HasColumnType("nvarchar(max)");
@@ -91,6 +194,49 @@ namespace DynamicForms.Migrations
                     b.HasIndex("StepId");
 
                     b.ToTable("Inputs");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Progress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FormId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StepId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Progresses");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Requirement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("InputId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InputId");
+
+                    b.ToTable("Requirements");
                 });
 
             modelBuilder.Entity("DynamicForms.Models.Step", b =>
@@ -120,13 +266,22 @@ namespace DynamicForms.Migrations
 
             modelBuilder.Entity("DynamicForms.Models.Choice", b =>
                 {
-                    b.HasOne("DynamicForms.Models.Input", "Input")
+                    b.HasOne("DynamicForms.Models.Input", null)
                         .WithMany("Choices")
                         .HasForeignKey("InputId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.Navigation("Input");
+            modelBuilder.Entity("DynamicForms.Models.Condition", b =>
+                {
+                    b.HasOne("DynamicForms.Models.Requirement", "Requirement")
+                        .WithMany()
+                        .HasForeignKey("RequirementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Requirement");
                 });
 
             modelBuilder.Entity("DynamicForms.Models.Input", b =>
@@ -138,6 +293,15 @@ namespace DynamicForms.Migrations
                         .IsRequired();
 
                     b.Navigation("Step");
+                });
+
+            modelBuilder.Entity("DynamicForms.Models.Requirement", b =>
+                {
+                    b.HasOne("DynamicForms.Models.Input", null)
+                        .WithMany("Requirements")
+                        .HasForeignKey("InputId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DynamicForms.Models.Step", b =>
@@ -159,6 +323,8 @@ namespace DynamicForms.Migrations
             modelBuilder.Entity("DynamicForms.Models.Input", b =>
                 {
                     b.Navigation("Choices");
+
+                    b.Navigation("Requirements");
                 });
 
             modelBuilder.Entity("DynamicForms.Models.Step", b =>

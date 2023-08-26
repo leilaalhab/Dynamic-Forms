@@ -17,6 +17,7 @@ namespace DynamicForms
             CreateMap<Step, GetStepDto>();
             CreateMap<AddStepDto, Step>();
 
+			CreateMap<FormulaTree, GetFormulaDto>();
         }
 	}
 }

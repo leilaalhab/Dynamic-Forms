@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<script src="lib/signalr/signalr.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protobufjs@7.2.3/dist/protobuf.js"></script>
+<script src="clientconnection.js"></script>
+
+
+
+
+<head>
+    <meta charset="utf-8" />
+    <title>SignalR JavaScript Client</title>
+</head>
+
+<body>
+    <h1>SignalR JavaScript Client</h1>
+    <p id="stateLabel">Ready to connect...</p>
+    <div>
+
+
+        <button onclick="StartForm()">Start Form</button>
+
+
+         <label>Form ID :</label> <input type="number" step="1" id="form_id" required>
+        <br>
+        <label for="progress_id">Progress ID:</label> <input type="number" step="1" id="progress_id">
+        <br>
+        <label id="priceLabel" >Price: </label>
+            <h2 id="Inputs">Inputs </h2>
+            <div id="inputs_list">
+             
+                <!-- Add inputs  -->
+
+            </div>
+        <br>
+        <button type="button" onclick="previousStep()">Previous Step</button>
+        <button type="button" onclick="nextStep()">Next Step</button>
+        <br>
+        <button type="submit" form="inputs_form">Submit Form</button>
+
+
+
+        <button onclick="disconnect()">Disconnect</button>
+    </div>
+
+ 
+</body>
+
+<script>
+    var form_id = document.getElementById("form_id");
+    
+    var progress_id = document.getElementById("progress_id");
+    var Connect = document.getElementById("stateLabel")
+    var InputP = document.getElementById("InputLabel")
+    var temp = document.getElementById("temp")
+
+</script>
+
+
+
+</html>
