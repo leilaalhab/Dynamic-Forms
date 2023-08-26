@@ -22,6 +22,8 @@ using DynamicForms.Services.HandleFormService;
 using DynamicForms.Services.HandleFormulaService;
 using DynamicForms.Services.AnswerService;
 using DynamicForms.Services.ProgressService;
+using System.Net.WebSockets;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 // builder.WebHost.ConfigureKestrel(options =>
@@ -31,11 +33,11 @@ var builder = WebApplication.CreateBuilder(args);
 //         HttpProtocols.Http2);
 // });
 
-
+// 
 builder.Services.Configure<DynamicFormsDatabaseSettings>(
     builder.Configuration.GetSection("DynamicFormsMDB"));
 
-//builder.Services.AddControllers();
+builder.Services.AddControllers();
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 
@@ -55,10 +57,6 @@ builder.Services.AddScoped<IHandleFormulaService, HandleFormulaService>();
 builder.Services.AddScoped<IAnswerService, AnswerService>();
 builder.Services.AddScoped<IProgressService, ProgressService>();
 
-
-
-
-
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
@@ -74,23 +72,43 @@ builder.Services.AddScoped<IProgressService, ProgressService>();
 
 
 
-builder.Services.AddCors();
-builder.Services.AddSignalR();
+//builder.Services.AddCors();
+//builder.Services.AddSignalR();
 
 var app = builder.Build();
+
 app.UseStaticFiles(new StaticFileOptions
 {
     ServeUnknownFileTypes = true,
     DefaultContentType = "text/plain"
 });
 
+var webSocketOptions = new WebSocketOptions
+{
+    KeepAliveInterval = TimeSpan.FromMinutes(2)
+};
 
-app.UseCors(builder => builder
-.WithOrigins("null")
-.AllowAnyHeader()
-.AllowAnyMethod()
-.AllowCredentials());
-app.MapHub<FormHub>("/FillForm");
+app.UseWebSockets(webSocketOptions);
 
-app.MapGet("/", () => "Hello World!");
+// app.Use(async (context, next) =>
+//   {
+//     if (context.WebSockets.IsWebSocketRequest)
+//     {
+//       WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+//       Console.WriteLine("WebSocket Connected");
+//     }
+//     else
+//     {
+//         await next(context);
+//     }
+//   });
+
+// app.UseCors(builder => builder
+// .WithOrigins("null")
+// .AllowAnyHeader()
+// .AllowAnyMethod()
+// .AllowCredentials());
+// app.MapHub<FormHub>("/FillForm");
+
+app.MapControllers();
 app.Run();
