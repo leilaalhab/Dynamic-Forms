@@ -9,7 +9,8 @@ namespace DynamicForms.Models
 		public int Order { get; set; }
 		public string Label { get; set; } = string.Empty;
 		public List<Input>? Inputs { get; set; }
-
+		public int? PreviousStep {get; set;}
+		public int? NextStep {get; set;}
 	}
 }
 

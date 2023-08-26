@@ -10,6 +10,9 @@ namespace DynamicForms.Dtos.Input
         public int Order { get; set; }
         public InpType InputType { get; set; }
         public List<GetChoiceDto>? Choices { get; set; }
+        public string Value {get; set;} = "0";
+        public ErrorType? errorType {get; set;}
+        public string? errorValue {get; set;} 
     }
 }
 

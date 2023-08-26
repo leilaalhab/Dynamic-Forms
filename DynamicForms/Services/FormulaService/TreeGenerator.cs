@@ -7,7 +7,7 @@ namespace DynamicForms.Services.FormulaService
 {
     public static class TreeGenerator
     {
-        private static Element[] elements;
+        private static Element[]? elements;
         private static int counter;
 
         public static FormulaTree GenerateTreeFromExpression(Element[] input) {
@@ -33,6 +33,7 @@ namespace DynamicForms.Services.FormulaService
 
         private static Node ReadInput()
         {
+            if (elements is not null) {
             Element temp = elements[counter];
             counter++;
             
@@ -48,6 +49,9 @@ namespace DynamicForms.Services.FormulaService
                     NodeType.ClosedParenthesis => ReadInput(),
                     _ => throw new Exception("Invalid input."),
                 };
+            } else {
+                throw new Exception("Elements not found.");
+            }
         }
 
         private static void AssignChildren(Node root, Node leftNode, Node rightNode)
@@ -81,33 +85,6 @@ namespace DynamicForms.Services.FormulaService
             else
                 throw new Exception("Invalid expression.");
         }
-
-        public static void Calculate(double op1, double op2, Node operation)
-        {
-            switch (operation.Type)
-            {
-                case NodeType.Addition: 
-                operation.Value =  op2 + op1;
-                return;
-                case NodeType.Subtraction: 
-                operation.Value = op2 - op1;
-                return;
-                case NodeType.Multiplication: 
-                operation.Value =  op2 * op1;
-                return;
-                case NodeType.Division:
-                    if (op1 == 0)
-                    {
-                        operation.Value = 0;
-                        return;
-                    }
-                    operation.Value = op2 / op1;
-                    return;
-                default: throw new Exception("Invalid operation");
-            }
-        }
-
-        
 
 
     }

@@ -16,6 +16,31 @@ namespace DynamicForms.Services.StepService
             _mapper = mapper;
         }
 
+        public async Task<ServiceResponse<Step>> GetStepWithForm(int formId, int order) {
+
+            var response = new ServiceResponse<Step>();
+            try
+            {
+                var step = await _context.Steps.FirstOrDefaultAsync(c => c.FormId == formId && c.Order == order);
+
+                if (step is null)
+                {
+                    response.Success = false;
+                    response.Message = $"Step with Formid {formId} and Order {order} was not found.";
+                    return response;
+                }
+
+                response.Data = step;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+
         public async Task<PagedServiceResponse<GetStepDto>> GetAllSteps(PaginationFilter filter)
         {
             var response = new PagedServiceResponse<GetStepDto>();
@@ -35,9 +60,9 @@ namespace DynamicForms.Services.StepService
             return response;
         }
 
-        public async Task<ServiceResponse<GetStepDto>> GetStep(int Id)
+        public async Task<ServiceResponse<Step>> GetStep(int Id)
         {
-            var response = new ServiceResponse<GetStepDto>();
+            var response = new ServiceResponse<Step>();
             try
             {
                 var step = await _context.Steps.FirstOrDefaultAsync(c => c.Id == Id);
@@ -49,7 +74,7 @@ namespace DynamicForms.Services.StepService
                     return response;
                 }
 
-                response.Data = _mapper.Map<GetStepDto>(step);
+                response.Data = step;
             }
             catch (Exception ex)
             {

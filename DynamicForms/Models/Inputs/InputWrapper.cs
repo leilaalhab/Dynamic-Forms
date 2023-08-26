@@ -14,5 +14,6 @@ namespace DynamicForms.Models
         public string TextValue { get; set; } = string.Empty;
         public int Index { get; set; }
         public bool Interacted { get; set; } = false;
+        public bool[]? Path {get; set;}
     }
 }

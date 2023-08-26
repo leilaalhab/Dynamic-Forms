@@ -60,23 +60,23 @@ namespace HandlingFormTests
             //var service = new HandleFormService(null, null, test);
             // service.inputs = mockInputs;
 
-            var FormulaRoot = new Node
+            var FormulaRoot = new @int
             {
                 Type = NodeType.Addition,
-                Left = new Node
+                Left = new @int
                 {
                     Type = NodeType.Variable,
                     InputId = 1
                 },
-                Right = new Node
+                Right = new @int
                 {
                     Type = NodeType.Multiplication,
-                    Left = new Node
+                    Left = new @int
                     {
                         Type = NodeType.Variable,
                         InputId = 2
                     },
-                    Right = new Node
+                    Right = new @int
                     {
                         Type = NodeType.Variable,
                         InputId = 3
@@ -124,7 +124,7 @@ namespace HandlingFormTests
             mockContext.Setup(c => c.Steps).Returns(mockSet.Object);
 
             var service = new HandleFormService(null, mockContext.Object, null);
-            service.SetInputs(1);
+            
 
             //Assert.AreEqual(3, service.inputs.Count());
             //Assert.AreEqual(0, service.inputs[0].Index);

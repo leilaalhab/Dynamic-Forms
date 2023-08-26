@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DynamicForms.Filter;
 using DynamicForms.Models;
 using Microsoft.EntityFrameworkCore;
+using ProtoBuf.Meta;
 
 namespace DynamicForms.Services.InputService
 {
@@ -17,10 +18,24 @@ namespace DynamicForms.Services.InputService
             _mapper = mapper;
         }
 
-        public async Task<PagedServiceResponse<GetInputDto>> GetAllInputs(PaginationFilter filter)
+        public async Task<ServiceResponse<List<Input>>> GetAllInputsWithStepId(int StepId)
         {
-            var response = new PagedServiceResponse<GetInputDto>();
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var response = new ServiceResponse<List<Input>>();
+            try {
+                    var Inputs = await _context.Inputs.Include(c => c.Choices).Include(c => c.Requirements).Where(i => i.StepId == StepId).ToListAsync();
+                    response.Data = Inputs;
+            } catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<GetInputDto>>> GetAllInputs()
+        {
+            var response = new ServiceResponse<List<GetInputDto>>();
+            //var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             try
             {
                 //var list = await _context.Inputs.ToListAsync();
@@ -33,11 +48,12 @@ namespace DynamicForms.Services.InputService
                 //  .Take(validFilter.PageSize).ToListAsync();
                 //response.Data = _mapper.Map<List<GetInputDto>>(pagedData);
                
-                var pagedInputs = await _context.Inputs.Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
-                .Take(validFilter.PageSize).Select(c => new {total_records = _context.Inputs.Count(), t = c }).ToListAsync();
-                response.TotalRecords = pagedInputs.ElementAt(0).total_records;
-                List<Input> inputs = pagedInputs.Select(b => b.t).ToList();
-                response.Data = _mapper.Map<List<GetInputDto>>(inputs);
+                //var pagedInputs = await _context.Inputs.Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+                //.Take(validFilter.PageSize).Select(c => new {total_records = _context.Inputs.Count(), t = c }).ToListAsync();
+                //response.TotalRecords = pagedInputs.ElementAt(0).total_records;
+                var pagedInputs = await _context.Inputs.ToListAsync();
+                //List<Input> inputs = pagedInputs.Select(b => b.t).ToList();
+                response.Data = _mapper.Map<List<GetInputDto>>(pagedInputs);
             }
             catch (Exception ex)
             {
@@ -179,5 +195,6 @@ namespace DynamicForms.Services.InputService
             }
             return response;
         }
+
     }
 }
