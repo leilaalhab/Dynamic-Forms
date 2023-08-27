@@ -12,17 +12,16 @@ namespace DynamicForms.Services.HandleFormulaService
         private readonly IFormulaService _FormulaService;
         public static InputWrapper[]? inputs;
         public static Stack<Node>? stepPath;
-        public static Node currentStepRoot;
+        public static Node? currentStepRoot;
 
         public HandleFormulaService(IFormulaService formulaService)
         {
             _FormulaService = formulaService;
         }
- 
+
         public async Task<FormulaTree> GetFormula(int formId)
         {
             var formula = await _FormulaService.GetFormulaWithFormId(formId);
-            await _FormulaService.AddInputPaths(formula.Data);
 
             if (formula.Data is not null)
                 return formula.Data;
@@ -32,7 +31,7 @@ namespace DynamicForms.Services.HandleFormulaService
 
         public double EvaluateFormula(FormulaTree formula, InputWrapper[] _inputs)
         {
-            
+
             inputs = _inputs;
             RecursiveEvaluate(formula.Root);
             return formula.Root.Value;
@@ -43,11 +42,11 @@ namespace DynamicForms.Services.HandleFormulaService
             double value = await CalculatePrice(formula.FormId, InputId);
             inputs = _inputs;
             return value;
-        }        
+        }
 
         private async Task<double> CalculatePrice(int formId, int inputId)
         {
-            
+
             Stack<Node>? nodes = await FindInputPath(formId, currentStepRoot, inputId);
 
             if (nodes is null)
@@ -90,10 +89,11 @@ namespace DynamicForms.Services.HandleFormulaService
             return false;
         }
 
-        public void ChangeStep(Node root, int stepId) {
+        public void ChangeStep(Node root, int stepId)
+        {
             var node = FindStepFormula(root, stepId);
             currentStepRoot = node;
-            
+
         }
 
         private Node FindStepFormula(Node root, int stepId)
@@ -117,27 +117,33 @@ namespace DynamicForms.Services.HandleFormulaService
 
                 var temp = nodes.Pop();
 
-                if (root.Right == temp)
+                if (nodes.Peek().Right == temp)
                 {
                     nodes.Pop();
+                    if (nodes.Count == 1)
+                        break;
                 }
+                else
+                {
 
-                root = nodes.Peek().Right;
+                    root = nodes.Peek().Right;
 
+                }
 
             } while (nodes.Count > 0);
 
             return null;
         }
 
-        public async Task<FormulaInputPaths> GetInputPaths(int formId) {
+        public async Task<FormulaInputPaths> GetInputPaths(int formId)
+        {
             var paths = await _FormulaService.GetInputPaths(formId);
             return paths;
         }
         private async Task<Stack<Node>?> FindInputPath(int formId, Node root, int inputId)
         {
             Stack<Node> nodes = stepPath;
-            var path = await _FormulaService.GetInputPath(formId, inputId);
+            var path = inputs[inputId].Path;
             var temproot = root;
 
 
@@ -146,11 +152,13 @@ namespace DynamicForms.Services.HandleFormulaService
 
             foreach (var direction in path)
             {
-                if (direction) {
+                if (direction)
+                {
                     temproot = temproot.Left;
                     nodes.Push(temproot);
                 }
-                else {
+                else
+                {
                     temproot = temproot.Right;
                     nodes.Push(temproot);
                 }
@@ -158,10 +166,9 @@ namespace DynamicForms.Services.HandleFormulaService
 
             if (root.InputId == inputId)
                 return nodes;
-            
-            Console.WriteLine("Didnt find the node.");
+
             nodes = stepPath;
-            
+
             do
             {
                 nodes.Push(root);
@@ -180,12 +187,16 @@ namespace DynamicForms.Services.HandleFormulaService
                 {
                     var temp = nodes.Pop();
 
-                    if (root.Right == temp)
+                    if (nodes.Peek().Right == temp)
                     {
                         nodes.Pop();
+                        if (nodes.Count == 1)
+                            break;
                     }
-
-                    root = nodes.Peek().Right;
+                    else
+                    {
+                        root = nodes.Peek().Right;
+                    }
                 }
 
             } while (nodes.Count > 0);

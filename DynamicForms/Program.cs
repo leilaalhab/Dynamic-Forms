@@ -31,18 +31,15 @@ var builder = WebApplication.CreateBuilder(args);
 //         HttpProtocols.Http2);
 // });
 
-
-builder.Services.Configure<DynamicFormsDatabaseSettings>(
-    builder.Configuration.GetSection("DynamicFormsMDB"));
-
 //builder.Services.AddControllers();
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
+// builder.Services.AddHttpContextAccessor();
 
-
+builder.Services.Configure<DynamicFormsDatabaseSettings>(
+    builder.Configuration.GetSection("DynamicFormsMDB"));
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IFormulaService, FormulaService>();
 builder.Services.AddScoped<IChoiceService, ChoiceService>();
@@ -50,14 +47,11 @@ builder.Services.AddScoped<IInputService, InputService>();
 builder.Services.AddScoped<IFormService, FormService>();
 builder.Services.AddScoped<IStepService, StepService>();
 builder.Services.AddScoped<IConditionService, ConditionService>();
-builder.Services.AddScoped<IHandleFormService, HandleFormService>();
-builder.Services.AddScoped<IHandleFormulaService, HandleFormulaService>();
 builder.Services.AddScoped<IAnswerService, AnswerService>();
 builder.Services.AddScoped<IProgressService, ProgressService>();
 
-
-
-
+builder.Services.AddScoped<IHandleFormService, HandleFormService>();
+builder.Services.AddScoped<IHandleFormulaService, HandleFormulaService>();
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
@@ -66,13 +60,9 @@ builder.Services.AddScoped<IProgressService, ProgressService>();
 //    app.UseSwaggerUI();
 //}
 
-
 //app.UseHttpsRedirection();
 //app.UseAuthorization();
 //app.MapControllers();
-
-
-
 
 builder.Services.AddCors();
 builder.Services.AddSignalR();
@@ -83,7 +73,6 @@ app.UseStaticFiles(new StaticFileOptions
     ServeUnknownFileTypes = true,
     DefaultContentType = "text/plain"
 });
-
 
 app.UseCors(builder => builder
 .WithOrigins("null")

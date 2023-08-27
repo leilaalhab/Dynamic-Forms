@@ -75,6 +75,8 @@ namespace DynamicForms.Services.FormulaService
                 tree.FormId = newFormula.ParentId;
 
                 await _FormulasCollection.InsertOneAsync(tree);
+                await AddInputPaths(tree);
+
 
             }
             catch (Exception ex)
@@ -85,18 +87,11 @@ namespace DynamicForms.Services.FormulaService
             return response;
         }
 
-        public async Task<FormulaInputPaths> GetInputPaths(int formId) {
-                        FormulaInputPaths formulaPaths = await _InputPathsCollection.Find(c => c.FormId == formId).FirstOrDefaultAsync();
-                        return formulaPaths;
-
-        }
-
-        public async Task<bool[]?> GetInputPath(int formId, int InputId)
+        public async Task<FormulaInputPaths> GetInputPaths(int formId)
         {
-            FormulaInputPaths formulaPaths = await _InputPathsCollection.Find(c => c.FormId == formId).FirstOrDefaultAsync();
-            var res = formulaPaths.Paths.FirstOrDefault(c => c.InputId == InputId);
+            var formulaPaths = await _InputPathsCollection.Find(c => c.FormId == formId).FirstOrDefaultAsync();
+            return formulaPaths;
 
-            return res.Path;
         }
 
         public async Task AddInputPaths(FormulaTree tree)
@@ -137,10 +132,11 @@ namespace DynamicForms.Services.FormulaService
                     stack.Pop();
                     if (nodes.Count == 1)
                         break;
-                } else {
-
-                root = nodes.Peek().Right;
-                stack.Push(false);
+                }
+                else
+                {
+                    root = nodes.Peek().Right;
+                    stack.Push(false);
                 }
 
             } while (nodes.Count > 0);

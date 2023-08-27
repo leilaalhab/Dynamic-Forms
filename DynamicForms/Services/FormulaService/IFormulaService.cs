@@ -14,7 +14,6 @@ namespace DynamicForms.Services.FormulaService
         public Task<ServiceResponse<GetFormulaDto>> AddFormula(AddFormulaDto newFormula);
         public Task<ServiceResponse<GetFormulaDto>> UpdateFormula(UpdateFormulaDto updatedFormula);
         public Task<ServiceResponse<int>> DeleteFormula(string Id);
-        public Task<bool[]?> GetInputPath(int formId, int InputId);
         Task AddInputPaths(FormulaTree tree);
         Task<FormulaInputPaths> GetInputPaths(int formId);
     }

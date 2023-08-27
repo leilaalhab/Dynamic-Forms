@@ -7,7 +7,8 @@ namespace DynamicForms.Models
 {
     public class InputValueRequest
     {
-        public int Id { get; set; }
-        public string Value { get; set; }
+        public int Index { get; set; }
+        public string Value { get; set; } = string.Empty;
+        public InpType InpType { get; set; }
     }
 }

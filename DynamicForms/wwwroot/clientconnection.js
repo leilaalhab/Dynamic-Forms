@@ -77,6 +77,10 @@ connection.on("RecieveSubmitCompletionStatus", function () {
 
 });
 
+connection.on("ChangeStepStatus", function () {
+
+});
+
 async function NextStep() {
     await connection.invoke("NextStep");
 }
