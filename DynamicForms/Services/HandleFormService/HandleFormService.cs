@@ -110,7 +110,7 @@ namespace DynamicForms.Services.HandleFormService
                     else if (Answer.GetType().Equals(typeof(DoubleAnswer)))
                         input.Value = ((DoubleAnswer)Answer).Value;
                     else
-                        input.Value = ((IntegerAnswer)Answer).Value;
+                        input.Value = ((IntegerAnswer)Answer).Value; // also for option id's
                 }
             }
         }
@@ -316,5 +316,4 @@ namespace DynamicForms.Services.HandleFormService
             await _AnswerService.AddAllAnswers(textAnswers, doubleAnswers, intAnswers);
         }
     }
-
 }

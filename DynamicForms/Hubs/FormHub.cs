@@ -45,7 +45,6 @@ namespace DynamicForms.Hubs
             }
 
             await Clients.Caller.SendAsync("RecieveFormStatus", response);
-
         }
 
         public async Task CheckInputValueValidity(JsonElement InputValueRequest)
@@ -55,18 +54,19 @@ namespace DynamicForms.Hubs
             {
                 var req = InputValueRequest.Deserialize<InputValueRequest>();
 
+                if (req is null)
+                    return;
+
                 Request request = new()
                 {
-                    Id = req.Id,
-                    InpType = InpType.Integer,
+                    Id = req.Index,
+                    InpType = req.InpType,
                     Value = int.Parse(req.Value),
                     TextValue = req.Value
                 };
 
-                if (request is null)
-                    return;
 
-                var currentInput = FindInputWithId(request.Id);
+                var currentInput = GetInputs()[request.Id];
 
                 if (_HandleFormService.IsInputValid(currentInput, request.Value, request.TextValue))
                     await SendDependentInputs(currentInput, request);
@@ -84,41 +84,76 @@ namespace DynamicForms.Hubs
 
         public async Task SubmitForm()
         {
-            await CheckUnchangedInputs();
-            await _HandleFormService.SaveValues(GetInputs(), GetProgress().Id);
+            var response = new ServiceResponse<Response>();
+            try
+            {
+                await CheckUnchangedInputs();
+                await _HandleFormService.SaveValues(GetInputs(), GetProgress().Id);
+            }
+            catch (Exception e)
+            {
+                response.Success = false;
+                response.Message = e.Message;
+            }
+
+            await Clients.Caller.SendAsync("RecieveSubmitCompletionStatus", response);
         }
 
         public async Task NextStep()
         {
-            if (await CheckUnchangedInputs())
+            var response = new ServiceResponse<Response>();
+            try
             {
-                Progress progress = GetProgress();
-                var nextStep = _HandleFormService.GetNextStep(progress.StepId);
-                if (nextStep is null)
+                if (await CheckUnchangedInputs())
                 {
-                    await SubmitForm();
-                    return;
-                }
+                    Progress progress = GetProgress();
+                    var nextStep = _HandleFormService.GetNextStep(progress.StepId);
+                    if (nextStep is null)
+                    {
+                        await SubmitForm();
+                        return;
+                    }
 
-                progress.StepId = nextStep.Id;
-                await _HandleFormService.SetInputs(progress);
+                    progress.StepId = nextStep.Id;
+                    await _HandleFormService.SetInputs(progress);
+                }
             }
+            catch (Exception e)
+            {
+                response.Success = false;
+                response.Message = e.Message;
+            }
+
+            await Clients.Caller.SendAsync("ChangeStepStatus", response);
         }
 
         public async Task PreviousStep()
         {
-            if (await CheckUnchangedInputs())
-            {
-                Progress progress = GetProgress();
-                var previousStep = _HandleFormService.GetPreviousStep(progress.StepId);
-                if (previousStep is null)
-                    return;
+            var response = new ServiceResponse<Response>();
 
-                progress.StepId = previousStep.Id;
-                await _HandleFormService.SetInputs(progress);
+            try
+            {
+                if (await CheckUnchangedInputs())
+                {
+                    Progress progress = GetProgress();
+                    var previousStep = _HandleFormService.GetPreviousStep(progress.StepId);
+                    if (previousStep is null)
+                        return;
+
+                    progress.StepId = previousStep.Id;
+                    await _HandleFormService.SetInputs(progress);
+                }
             }
+            catch (Exception e)
+            {
+                response.Success = false;
+                response.Message = e.Message;
+            }
+
+            await Clients.Caller.SendAsync("ChangeStepStatus", response);
         }
 
+        //logic
         private async Task<bool> CheckUnchangedInputs()
         {
             var UnchangedInputs = _HandleFormService.GetUnchangedInputs(GetInputs());
@@ -158,13 +193,16 @@ namespace DynamicForms.Hubs
             FormulaTree formula = await _HandleFormulaService.GetFormula(GetFormId());
             Context.Items.Add("formula", formula);
             FormulaInputPaths formulaInputPaths = await _HandleFormulaService.GetInputPaths(GetFormId());
-            var Inputs = GetInputs();
 
-            foreach (var Path in formulaInputPaths.Paths)
+            if (formulaInputPaths.Paths is not null)
             {
-                Inputs.FirstOrDefault(c => c.Input.Id == Path.InputId).Path = Path.Path;
-            }
 
+                foreach (var Path in formulaInputPaths.Paths)
+                {
+                    FindInputWithId(Path.InputId).Path = Path.Path;
+                }
+
+            }
 
             var value = _HandleFormulaService.EvaluateFormula(formula, GetInputs());
             await SendPriceResponse(value);
