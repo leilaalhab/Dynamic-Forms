@@ -22,31 +22,32 @@ namespace Formpackage {
     static FormReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJ3d3dyb290L2Zvcm0ucHJvdG8SC2Zvcm1wYWNrYWdlIo0BCgdSZXF1ZXN0",
-            "EgoKAklkGAEgASgFEiUKB0lucFR5cGUYAiABKA4yFC5mb3JtcGFja2FnZS5J",
-            "bnBUeXBlEg0KBVZhbHVlGAMgASgCEhEKCVRleHRWYWx1ZRgEIAEoCRItCgtS",
-            "ZXF1ZXN0VHlwZRgFIAEoDjIYLmZvcm1wYWNrYWdlLlJlcXVlc3RUeXBlIpkC",
-            "CghSZXNwb25zZRIKCgJJZBgBIAEoBRINCgVMYWJlbBgCIAEoCRITCgtQbGFj",
-            "ZWhvbGRlchgDIAEoCRIlCgdJbnBUeXBlGAQgASgOMhQuZm9ybXBhY2thZ2Uu",
-            "SW5wVHlwZRIlCgVFcnJvchgFIAEoDjIWLmZvcm1wYWNrYWdlLkVycm9yVHlw",
-            "ZRISCgpFcnJvclZhbHVlGAYgASgBEg0KBVZhbHVlGAcgASgBEhEKCVRleHRW",
-            "YWx1ZRgIIAEoCRIvCgxSZXNwb25zZVR5cGUYCSABKA4yGS5mb3JtcGFja2Fn",
-            "ZS5SZXNwb25zZVR5cGUSKAoHQ2hvaWNlcxgKIAMoCzIXLmZvcm1wYWNrYWdl",
-            "LlNlbmRDaG9pY2UiJwoKU2VuZENob2ljZRIKCgJJZBgBIAEoBRINCgVMYWJl",
-            "bBgCIAEoCSpfCgdJbnBUeXBlEggKBFRleHQQABILCgdJbnRlZ2VyEAESCQoF",
-            "RmxvYXQQAhIMCghEYXRlVGltZRADEgkKBVJhZGlvEAQSDAoIQ2hlY2tib3gQ",
-            "BRILCgdPcHRpb25zEAYqLQoLUmVxdWVzdFR5cGUSDgoKSW5wdXRWYWx1ZRAA",
-            "Eg4KCkZvcm1TdWJtaXQQASpqCgxSZXNwb25zZVR5cGUSEQoNSW5wdXRWYWxp",
-            "ZGl0eRAAEgwKCE5ld0lucHV0EAESFgoSRm9ybVN1Ym1pdEFjY2VwdGVkEAIS",
-            "FgoSRm9ybVN1Ym1pdFJlamVjdGVkEAMSCQoFUHJpY2UQBCpeCglFcnJvclR5",
-            "cGUSDAoIUmVxdWlyZWQQABIJCgVFcXVhbBABEgwKCE5vdEVxdWFsEAISDwoL",
-            "R3JlYXRlclRoYW4QAxIMCghMZXNzVGhhbhAEEgsKB05vRXJyb3IQBWIGcHJv",
-            "dG8z"));
+            "ChJ3d3dyb290L2Zvcm0ucHJvdG8SC2Zvcm1wYWNrYWdlIjYKEFN0YXJ0Rm9y",
+            "bVJlcXVlc3QSDgoGRm9ybUlkGAEgASgFEhIKClByb2dyZXNzSWQYAiABKAUi",
+            "cAoRSW5wdXRWYWx1ZVJlcXVlc3QSDQoFSW5kZXgYASABKAUSJwoJSW5wdXRU",
+            "eXBlGAIgASgOMhQuZm9ybXBhY2thZ2UuSW5wVHlwZRIQCghOdW1WYWx1ZRgD",
+            "IAEoARIRCglUZXh0VmFsdWUYBCABKAkiMgoQVmFsaWRpdHlSZXNwb25zZRIN",
+            "CgVWYWxpZBgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIpUBCg1JbnB1dFJlc3Bv",
+            "bnNlEg0KBUluZGV4GAEgASgFEg0KBUxhYmVsGAIgASgJEhMKC1BsYWNlaG9s",
+            "ZGVyGAMgASgJEicKCUlucHV0VHlwZRgEIAEoDjIULmZvcm1wYWNrYWdlLklu",
+            "cFR5cGUSKAoHY2hvaWNlcxgFIAMoCzIXLmZvcm1wYWNrYWdlLlNlbmRDaG9p",
+            "Y2UihQEKFElucHV0SW52YWxpZFJlc3BvbnNlEg0KBUluZGV4GAEgASgFEiUK",
+            "BUVycm9yGAIgASgOMhYuZm9ybXBhY2thZ2UuRXJyb3JUeXBlEhIKCkVycm9y",
+            "VmFsdWUYAyABKAESEAoITnVtVmFsdWUYBCABKAESEQoJdGV4dFZhbHVlGAUg",
+            "ASgJIh4KDVByaWNlUmVzcG9uc2USDQoFUHJpY2UYASABKAEiJwoKU2VuZENo",
+            "b2ljZRIKCgJJZBgBIAEoBRINCgVMYWJlbBgCIAEoCSo4CgdJbnBUeXBlEggK",
+            "BFRleHQQABILCgdJbnRlZ2VyEAESCQoFRmxvYXQQAhILCgdPcHRpb25zEAMq",
+            "UQoJRXJyb3JUeXBlEgwKCFJlcXVpcmVkEAASCQoFRXF1YWwQARIMCghOb3RF",
+            "cXVhbBACEg8KC0dyZWF0ZXJUaGFuEAMSDAoITGVzc1RoYW4QBGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Formpackage.InpType), typeof(global::Formpackage.RequestType), typeof(global::Formpackage.ResponseType), typeof(global::Formpackage.ErrorType), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.Request), global::Formpackage.Request.Parser, new[]{ "Id", "InpType", "Value", "TextValue", "RequestType" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.Response), global::Formpackage.Response.Parser, new[]{ "Id", "Label", "Placeholder", "InpType", "Error", "ErrorValue", "Value", "TextValue", "ResponseType", "Choices" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Formpackage.InpType), typeof(global::Formpackage.ErrorType), }, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.StartFormRequest), global::Formpackage.StartFormRequest.Parser, new[]{ "FormId", "ProgressId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.InputValueRequest), global::Formpackage.InputValueRequest.Parser, new[]{ "Index", "InputType", "NumValue", "TextValue" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.ValidityResponse), global::Formpackage.ValidityResponse.Parser, new[]{ "Valid", "Message" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.InputResponse), global::Formpackage.InputResponse.Parser, new[]{ "Index", "Label", "Placeholder", "InputType", "Choices" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.InputInvalidResponse), global::Formpackage.InputInvalidResponse.Parser, new[]{ "Index", "Error", "ErrorValue", "NumValue", "TextValue" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.PriceResponse), global::Formpackage.PriceResponse.Parser, new[]{ "Price" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.SendChoice), global::Formpackage.SendChoice.Parser, new[]{ "Id", "Label" }, null, null, null)
           }));
     }
@@ -58,23 +59,7 @@ namespace Formpackage {
     [pbr::OriginalName("Text")] Text = 0,
     [pbr::OriginalName("Integer")] Integer = 1,
     [pbr::OriginalName("Float")] Float = 2,
-    [pbr::OriginalName("DateTime")] DateTime = 3,
-    [pbr::OriginalName("Radio")] Radio = 4,
-    [pbr::OriginalName("Checkbox")] Checkbox = 5,
-    [pbr::OriginalName("Options")] Options = 6,
-  }
-
-  public enum RequestType {
-    [pbr::OriginalName("InputValue")] InputValue = 0,
-    [pbr::OriginalName("FormSubmit")] FormSubmit = 1,
-  }
-
-  public enum ResponseType {
-    [pbr::OriginalName("InputValidity")] InputValidity = 0,
-    [pbr::OriginalName("NewInput")] NewInput = 1,
-    [pbr::OriginalName("FormSubmitAccepted")] FormSubmitAccepted = 2,
-    [pbr::OriginalName("FormSubmitRejected")] FormSubmitRejected = 3,
-    [pbr::OriginalName("Price")] Price = 4,
+    [pbr::OriginalName("Options")] Options = 3,
   }
 
   public enum ErrorType {
@@ -82,17 +67,22 @@ namespace Formpackage {
     [pbr::OriginalName("Equal")] Equal = 1,
     [pbr::OriginalName("NotEqual")] NotEqual = 2,
     [pbr::OriginalName("GreaterThan")] GreaterThan = 3,
+    /// <summary>
+    /// DigitsOnly
+    /// </summary>
     [pbr::OriginalName("LessThan")] LessThan = 4,
-    [pbr::OriginalName("NoError")] NoError = 5,
   }
 
   #endregion
 
   #region Messages
-  public sealed partial class Request : pb::IMessage<Request> {
-    private static readonly pb::MessageParser<Request> _parser = new pb::MessageParser<Request>(() => new Request());
+  /// <summary>
+  /// requests
+  /// </summary>
+  public sealed partial class StartFormRequest : pb::IMessage<StartFormRequest> {
+    private static readonly pb::MessageParser<StartFormRequest> _parser = new pb::MessageParser<StartFormRequest>(() => new StartFormRequest());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Request> Parser { get { return _parser; } }
+    public static pb::MessageParser<StartFormRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -105,56 +95,200 @@ namespace Formpackage {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Request() {
+    public StartFormRequest() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Request(Request other) : this() {
-      id_ = other.id_;
-      inpType_ = other.inpType_;
-      value_ = other.value_;
+    public StartFormRequest(StartFormRequest other) : this() {
+      formId_ = other.formId_;
+      progressId_ = other.progressId_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StartFormRequest Clone() {
+      return new StartFormRequest(this);
+    }
+
+    /// <summary>Field number for the "FormId" field.</summary>
+    public const int FormIdFieldNumber = 1;
+    private int formId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int FormId {
+      get { return formId_; }
+      set {
+        formId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ProgressId" field.</summary>
+    public const int ProgressIdFieldNumber = 2;
+    private int progressId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ProgressId {
+      get { return progressId_; }
+      set {
+        progressId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as StartFormRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(StartFormRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (FormId != other.FormId) return false;
+      if (ProgressId != other.ProgressId) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (FormId != 0) hash ^= FormId.GetHashCode();
+      if (ProgressId != 0) hash ^= ProgressId.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (FormId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(FormId);
+      }
+      if (ProgressId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(ProgressId);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (FormId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(FormId);
+      }
+      if (ProgressId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ProgressId);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(StartFormRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.FormId != 0) {
+        FormId = other.FormId;
+      }
+      if (other.ProgressId != 0) {
+        ProgressId = other.ProgressId;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            FormId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            ProgressId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class InputValueRequest : pb::IMessage<InputValueRequest> {
+    private static readonly pb::MessageParser<InputValueRequest> _parser = new pb::MessageParser<InputValueRequest>(() => new InputValueRequest());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<InputValueRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public InputValueRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public InputValueRequest(InputValueRequest other) : this() {
+      index_ = other.index_;
+      inputType_ = other.inputType_;
+      numValue_ = other.numValue_;
       textValue_ = other.textValue_;
-      requestType_ = other.requestType_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Request Clone() {
-      return new Request(this);
+    public InputValueRequest Clone() {
+      return new InputValueRequest(this);
     }
 
-    /// <summary>Field number for the "Id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private int id_;
+    /// <summary>Field number for the "Index" field.</summary>
+    public const int IndexFieldNumber = 1;
+    private int index_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Id {
-      get { return id_; }
+    public int Index {
+      get { return index_; }
       set {
-        id_ = value;
+        index_ = value;
       }
     }
 
-    /// <summary>Field number for the "InpType" field.</summary>
-    public const int InpTypeFieldNumber = 2;
-    private global::Formpackage.InpType inpType_ = 0;
+    /// <summary>Field number for the "InputType" field.</summary>
+    public const int InputTypeFieldNumber = 2;
+    private global::Formpackage.InpType inputType_ = 0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Formpackage.InpType InpType {
-      get { return inpType_; }
+    public global::Formpackage.InpType InputType {
+      get { return inputType_; }
       set {
-        inpType_ = value;
+        inputType_ = value;
       }
     }
 
-    /// <summary>Field number for the "Value" field.</summary>
-    public const int ValueFieldNumber = 3;
-    private float value_;
+    /// <summary>Field number for the "NumValue" field.</summary>
+    public const int NumValueFieldNumber = 3;
+    private double numValue_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public float Value {
-      get { return value_; }
+    public double NumValue {
+      get { return numValue_; }
       set {
-        value_ = value;
+        numValue_ = value;
       }
     }
 
@@ -169,46 +303,33 @@ namespace Formpackage {
       }
     }
 
-    /// <summary>Field number for the "RequestType" field.</summary>
-    public const int RequestTypeFieldNumber = 5;
-    private global::Formpackage.RequestType requestType_ = 0;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Formpackage.RequestType RequestType {
-      get { return requestType_; }
-      set {
-        requestType_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Request);
+      return Equals(other as InputValueRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Request other) {
+    public bool Equals(InputValueRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Id != other.Id) return false;
-      if (InpType != other.InpType) return false;
-      if (Value != other.Value) return false;
+      if (Index != other.Index) return false;
+      if (InputType != other.InputType) return false;
+      if (NumValue != other.NumValue) return false;
       if (TextValue != other.TextValue) return false;
-      if (RequestType != other.RequestType) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Id != 0) hash ^= Id.GetHashCode();
-      if (InpType != 0) hash ^= InpType.GetHashCode();
-      if (Value != 0F) hash ^= Value.GetHashCode();
+      if (Index != 0) hash ^= Index.GetHashCode();
+      if (InputType != 0) hash ^= InputType.GetHashCode();
+      if (NumValue != 0D) hash ^= NumValue.GetHashCode();
       if (TextValue.Length != 0) hash ^= TextValue.GetHashCode();
-      if (RequestType != 0) hash ^= RequestType.GetHashCode();
       return hash;
     }
 
@@ -219,68 +340,58 @@ namespace Formpackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Id != 0) {
+      if (Index != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(Id);
+        output.WriteInt32(Index);
       }
-      if (InpType != 0) {
+      if (InputType != 0) {
         output.WriteRawTag(16);
-        output.WriteEnum((int) InpType);
+        output.WriteEnum((int) InputType);
       }
-      if (Value != 0F) {
-        output.WriteRawTag(29);
-        output.WriteFloat(Value);
+      if (NumValue != 0D) {
+        output.WriteRawTag(25);
+        output.WriteDouble(NumValue);
       }
       if (TextValue.Length != 0) {
         output.WriteRawTag(34);
         output.WriteString(TextValue);
-      }
-      if (RequestType != 0) {
-        output.WriteRawTag(40);
-        output.WriteEnum((int) RequestType);
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Id != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      if (Index != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Index);
       }
-      if (InpType != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) InpType);
+      if (InputType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) InputType);
       }
-      if (Value != 0F) {
-        size += 1 + 4;
+      if (NumValue != 0D) {
+        size += 1 + 8;
       }
       if (TextValue.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(TextValue);
-      }
-      if (RequestType != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) RequestType);
       }
       return size;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Request other) {
+    public void MergeFrom(InputValueRequest other) {
       if (other == null) {
         return;
       }
-      if (other.Id != 0) {
-        Id = other.Id;
+      if (other.Index != 0) {
+        Index = other.Index;
       }
-      if (other.InpType != 0) {
-        InpType = other.InpType;
+      if (other.InputType != 0) {
+        InputType = other.InputType;
       }
-      if (other.Value != 0F) {
-        Value = other.Value;
+      if (other.NumValue != 0D) {
+        NumValue = other.NumValue;
       }
       if (other.TextValue.Length != 0) {
         TextValue = other.TextValue;
-      }
-      if (other.RequestType != 0) {
-        RequestType = other.RequestType;
       }
     }
 
@@ -293,23 +404,19 @@ namespace Formpackage {
             input.SkipLastField();
             break;
           case 8: {
-            Id = input.ReadInt32();
+            Index = input.ReadInt32();
             break;
           }
           case 16: {
-            inpType_ = (global::Formpackage.InpType) input.ReadEnum();
+            inputType_ = (global::Formpackage.InpType) input.ReadEnum();
             break;
           }
-          case 29: {
-            Value = input.ReadFloat();
+          case 25: {
+            NumValue = input.ReadDouble();
             break;
           }
           case 34: {
             TextValue = input.ReadString();
-            break;
-          }
-          case 40: {
-            requestType_ = (global::Formpackage.RequestType) input.ReadEnum();
             break;
           }
         }
@@ -318,14 +425,17 @@ namespace Formpackage {
 
   }
 
-  public sealed partial class Response : pb::IMessage<Response> {
-    private static readonly pb::MessageParser<Response> _parser = new pb::MessageParser<Response>(() => new Response());
+  /// <summary>
+  /// responses
+  /// </summary>
+  public sealed partial class ValidityResponse : pb::IMessage<ValidityResponse> {
+    private static readonly pb::MessageParser<ValidityResponse> _parser = new pb::MessageParser<ValidityResponse>(() => new ValidityResponse());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Response> Parser { get { return _parser; } }
+    public static pb::MessageParser<ValidityResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -334,39 +444,179 @@ namespace Formpackage {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Response() {
+    public ValidityResponse() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Response(Response other) : this() {
-      id_ = other.id_;
+    public ValidityResponse(ValidityResponse other) : this() {
+      valid_ = other.valid_;
+      message_ = other.message_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ValidityResponse Clone() {
+      return new ValidityResponse(this);
+    }
+
+    /// <summary>Field number for the "Valid" field.</summary>
+    public const int ValidFieldNumber = 1;
+    private bool valid_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Valid {
+      get { return valid_; }
+      set {
+        valid_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "message" field.</summary>
+    public const int MessageFieldNumber = 2;
+    private string message_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Message {
+      get { return message_; }
+      set {
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ValidityResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ValidityResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Valid != other.Valid) return false;
+      if (Message != other.Message) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Valid != false) hash ^= Valid.GetHashCode();
+      if (Message.Length != 0) hash ^= Message.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Valid != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Valid);
+      }
+      if (Message.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Message);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Valid != false) {
+        size += 1 + 1;
+      }
+      if (Message.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ValidityResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Valid != false) {
+        Valid = other.Valid;
+      }
+      if (other.Message.Length != 0) {
+        Message = other.Message;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Valid = input.ReadBool();
+            break;
+          }
+          case 18: {
+            Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class InputResponse : pb::IMessage<InputResponse> {
+    private static readonly pb::MessageParser<InputResponse> _parser = new pb::MessageParser<InputResponse>(() => new InputResponse());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<InputResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public InputResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public InputResponse(InputResponse other) : this() {
+      index_ = other.index_;
       label_ = other.label_;
       placeholder_ = other.placeholder_;
-      inpType_ = other.inpType_;
-      error_ = other.error_;
-      errorValue_ = other.errorValue_;
-      value_ = other.value_;
-      textValue_ = other.textValue_;
-      responseType_ = other.responseType_;
+      inputType_ = other.inputType_;
       choices_ = other.choices_.Clone();
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Response Clone() {
-      return new Response(this);
+    public InputResponse Clone() {
+      return new InputResponse(this);
     }
 
-    /// <summary>Field number for the "Id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private int id_;
+    /// <summary>Field number for the "Index" field.</summary>
+    public const int IndexFieldNumber = 1;
+    private int index_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Id {
-      get { return id_; }
+    public int Index {
+      get { return index_; }
       set {
-        id_ = value;
+        index_ = value;
       }
     }
 
@@ -392,76 +642,21 @@ namespace Formpackage {
       }
     }
 
-    /// <summary>Field number for the "InpType" field.</summary>
-    public const int InpTypeFieldNumber = 4;
-    private global::Formpackage.InpType inpType_ = 0;
+    /// <summary>Field number for the "InputType" field.</summary>
+    public const int InputTypeFieldNumber = 4;
+    private global::Formpackage.InpType inputType_ = 0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Formpackage.InpType InpType {
-      get { return inpType_; }
+    public global::Formpackage.InpType InputType {
+      get { return inputType_; }
       set {
-        inpType_ = value;
+        inputType_ = value;
       }
     }
 
-    /// <summary>Field number for the "Error" field.</summary>
-    public const int ErrorFieldNumber = 5;
-    private global::Formpackage.ErrorType error_ = 0;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Formpackage.ErrorType Error {
-      get { return error_; }
-      set {
-        error_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ErrorValue" field.</summary>
-    public const int ErrorValueFieldNumber = 6;
-    private double errorValue_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public double ErrorValue {
-      get { return errorValue_; }
-      set {
-        errorValue_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "Value" field.</summary>
-    public const int ValueFieldNumber = 7;
-    private double value_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public double Value {
-      get { return value_; }
-      set {
-        value_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "TextValue" field.</summary>
-    public const int TextValueFieldNumber = 8;
-    private string textValue_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string TextValue {
-      get { return textValue_; }
-      set {
-        textValue_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "ResponseType" field.</summary>
-    public const int ResponseTypeFieldNumber = 9;
-    private global::Formpackage.ResponseType responseType_ = 0;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Formpackage.ResponseType ResponseType {
-      get { return responseType_; }
-      set {
-        responseType_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "Choices" field.</summary>
-    public const int ChoicesFieldNumber = 10;
+    /// <summary>Field number for the "choices" field.</summary>
+    public const int ChoicesFieldNumber = 5;
     private static readonly pb::FieldCodec<global::Formpackage.SendChoice> _repeated_choices_codec
-        = pb::FieldCodec.ForMessage(82, global::Formpackage.SendChoice.Parser);
+        = pb::FieldCodec.ForMessage(42, global::Formpackage.SendChoice.Parser);
     private readonly pbc::RepeatedField<global::Formpackage.SendChoice> choices_ = new pbc::RepeatedField<global::Formpackage.SendChoice>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<global::Formpackage.SendChoice> Choices {
@@ -470,26 +665,21 @@ namespace Formpackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Response);
+      return Equals(other as InputResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Response other) {
+    public bool Equals(InputResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Id != other.Id) return false;
+      if (Index != other.Index) return false;
       if (Label != other.Label) return false;
       if (Placeholder != other.Placeholder) return false;
-      if (InpType != other.InpType) return false;
-      if (Error != other.Error) return false;
-      if (ErrorValue != other.ErrorValue) return false;
-      if (Value != other.Value) return false;
-      if (TextValue != other.TextValue) return false;
-      if (ResponseType != other.ResponseType) return false;
+      if (InputType != other.InputType) return false;
       if(!choices_.Equals(other.choices_)) return false;
       return true;
     }
@@ -497,15 +687,10 @@ namespace Formpackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Id != 0) hash ^= Id.GetHashCode();
+      if (Index != 0) hash ^= Index.GetHashCode();
       if (Label.Length != 0) hash ^= Label.GetHashCode();
       if (Placeholder.Length != 0) hash ^= Placeholder.GetHashCode();
-      if (InpType != 0) hash ^= InpType.GetHashCode();
-      if (Error != 0) hash ^= Error.GetHashCode();
-      if (ErrorValue != 0D) hash ^= ErrorValue.GetHashCode();
-      if (Value != 0D) hash ^= Value.GetHashCode();
-      if (TextValue.Length != 0) hash ^= TextValue.GetHashCode();
-      if (ResponseType != 0) hash ^= ResponseType.GetHashCode();
+      if (InputType != 0) hash ^= InputType.GetHashCode();
       hash ^= choices_.GetHashCode();
       return hash;
     }
@@ -517,9 +702,9 @@ namespace Formpackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Id != 0) {
+      if (Index != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(Id);
+        output.WriteInt32(Index);
       }
       if (Label.Length != 0) {
         output.WriteRawTag(18);
@@ -529,29 +714,9 @@ namespace Formpackage {
         output.WriteRawTag(26);
         output.WriteString(Placeholder);
       }
-      if (InpType != 0) {
+      if (InputType != 0) {
         output.WriteRawTag(32);
-        output.WriteEnum((int) InpType);
-      }
-      if (Error != 0) {
-        output.WriteRawTag(40);
-        output.WriteEnum((int) Error);
-      }
-      if (ErrorValue != 0D) {
-        output.WriteRawTag(49);
-        output.WriteDouble(ErrorValue);
-      }
-      if (Value != 0D) {
-        output.WriteRawTag(57);
-        output.WriteDouble(Value);
-      }
-      if (TextValue.Length != 0) {
-        output.WriteRawTag(66);
-        output.WriteString(TextValue);
-      }
-      if (ResponseType != 0) {
-        output.WriteRawTag(72);
-        output.WriteEnum((int) ResponseType);
+        output.WriteEnum((int) InputType);
       }
       choices_.WriteTo(output, _repeated_choices_codec);
     }
@@ -559,8 +724,8 @@ namespace Formpackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Id != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      if (Index != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Index);
       }
       if (Label.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Label);
@@ -568,35 +733,20 @@ namespace Formpackage {
       if (Placeholder.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Placeholder);
       }
-      if (InpType != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) InpType);
-      }
-      if (Error != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
-      }
-      if (ErrorValue != 0D) {
-        size += 1 + 8;
-      }
-      if (Value != 0D) {
-        size += 1 + 8;
-      }
-      if (TextValue.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(TextValue);
-      }
-      if (ResponseType != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ResponseType);
+      if (InputType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) InputType);
       }
       size += choices_.CalculateSize(_repeated_choices_codec);
       return size;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Response other) {
+    public void MergeFrom(InputResponse other) {
       if (other == null) {
         return;
       }
-      if (other.Id != 0) {
-        Id = other.Id;
+      if (other.Index != 0) {
+        Index = other.Index;
       }
       if (other.Label.Length != 0) {
         Label = other.Label;
@@ -604,23 +754,8 @@ namespace Formpackage {
       if (other.Placeholder.Length != 0) {
         Placeholder = other.Placeholder;
       }
-      if (other.InpType != 0) {
-        InpType = other.InpType;
-      }
-      if (other.Error != 0) {
-        Error = other.Error;
-      }
-      if (other.ErrorValue != 0D) {
-        ErrorValue = other.ErrorValue;
-      }
-      if (other.Value != 0D) {
-        Value = other.Value;
-      }
-      if (other.TextValue.Length != 0) {
-        TextValue = other.TextValue;
-      }
-      if (other.ResponseType != 0) {
-        ResponseType = other.ResponseType;
+      if (other.InputType != 0) {
+        InputType = other.InputType;
       }
       choices_.Add(other.choices_);
     }
@@ -634,7 +769,7 @@ namespace Formpackage {
             input.SkipLastField();
             break;
           case 8: {
-            Id = input.ReadInt32();
+            Index = input.ReadInt32();
             break;
           }
           case 18: {
@@ -646,31 +781,357 @@ namespace Formpackage {
             break;
           }
           case 32: {
-            inpType_ = (global::Formpackage.InpType) input.ReadEnum();
+            inputType_ = (global::Formpackage.InpType) input.ReadEnum();
             break;
           }
-          case 40: {
+          case 42: {
+            choices_.AddEntriesFrom(input, _repeated_choices_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class InputInvalidResponse : pb::IMessage<InputInvalidResponse> {
+    private static readonly pb::MessageParser<InputInvalidResponse> _parser = new pb::MessageParser<InputInvalidResponse>(() => new InputInvalidResponse());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<InputInvalidResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public InputInvalidResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public InputInvalidResponse(InputInvalidResponse other) : this() {
+      index_ = other.index_;
+      error_ = other.error_;
+      errorValue_ = other.errorValue_;
+      numValue_ = other.numValue_;
+      textValue_ = other.textValue_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public InputInvalidResponse Clone() {
+      return new InputInvalidResponse(this);
+    }
+
+    /// <summary>Field number for the "Index" field.</summary>
+    public const int IndexFieldNumber = 1;
+    private int index_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Index {
+      get { return index_; }
+      set {
+        index_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Error" field.</summary>
+    public const int ErrorFieldNumber = 2;
+    private global::Formpackage.ErrorType error_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Formpackage.ErrorType Error {
+      get { return error_; }
+      set {
+        error_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ErrorValue" field.</summary>
+    public const int ErrorValueFieldNumber = 3;
+    private double errorValue_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double ErrorValue {
+      get { return errorValue_; }
+      set {
+        errorValue_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "NumValue" field.</summary>
+    public const int NumValueFieldNumber = 4;
+    private double numValue_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double NumValue {
+      get { return numValue_; }
+      set {
+        numValue_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "textValue" field.</summary>
+    public const int TextValueFieldNumber = 5;
+    private string textValue_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string TextValue {
+      get { return textValue_; }
+      set {
+        textValue_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as InputInvalidResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(InputInvalidResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Index != other.Index) return false;
+      if (Error != other.Error) return false;
+      if (ErrorValue != other.ErrorValue) return false;
+      if (NumValue != other.NumValue) return false;
+      if (TextValue != other.TextValue) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Index != 0) hash ^= Index.GetHashCode();
+      if (Error != 0) hash ^= Error.GetHashCode();
+      if (ErrorValue != 0D) hash ^= ErrorValue.GetHashCode();
+      if (NumValue != 0D) hash ^= NumValue.GetHashCode();
+      if (TextValue.Length != 0) hash ^= TextValue.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Index != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Index);
+      }
+      if (Error != 0) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Error);
+      }
+      if (ErrorValue != 0D) {
+        output.WriteRawTag(25);
+        output.WriteDouble(ErrorValue);
+      }
+      if (NumValue != 0D) {
+        output.WriteRawTag(33);
+        output.WriteDouble(NumValue);
+      }
+      if (TextValue.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(TextValue);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Index != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Index);
+      }
+      if (Error != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
+      }
+      if (ErrorValue != 0D) {
+        size += 1 + 8;
+      }
+      if (NumValue != 0D) {
+        size += 1 + 8;
+      }
+      if (TextValue.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(TextValue);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(InputInvalidResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Index != 0) {
+        Index = other.Index;
+      }
+      if (other.Error != 0) {
+        Error = other.Error;
+      }
+      if (other.ErrorValue != 0D) {
+        ErrorValue = other.ErrorValue;
+      }
+      if (other.NumValue != 0D) {
+        NumValue = other.NumValue;
+      }
+      if (other.TextValue.Length != 0) {
+        TextValue = other.TextValue;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Index = input.ReadInt32();
+            break;
+          }
+          case 16: {
             error_ = (global::Formpackage.ErrorType) input.ReadEnum();
             break;
           }
-          case 49: {
+          case 25: {
             ErrorValue = input.ReadDouble();
             break;
           }
-          case 57: {
-            Value = input.ReadDouble();
+          case 33: {
+            NumValue = input.ReadDouble();
             break;
           }
-          case 66: {
+          case 42: {
             TextValue = input.ReadString();
             break;
           }
-          case 72: {
-            responseType_ = (global::Formpackage.ResponseType) input.ReadEnum();
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class PriceResponse : pb::IMessage<PriceResponse> {
+    private static readonly pb::MessageParser<PriceResponse> _parser = new pb::MessageParser<PriceResponse>(() => new PriceResponse());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<PriceResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[5]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PriceResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PriceResponse(PriceResponse other) : this() {
+      price_ = other.price_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PriceResponse Clone() {
+      return new PriceResponse(this);
+    }
+
+    /// <summary>Field number for the "Price" field.</summary>
+    public const int PriceFieldNumber = 1;
+    private double price_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double Price {
+      get { return price_; }
+      set {
+        price_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as PriceResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(PriceResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Price != other.Price) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Price != 0D) hash ^= Price.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Price != 0D) {
+        output.WriteRawTag(9);
+        output.WriteDouble(Price);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Price != 0D) {
+        size += 1 + 8;
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(PriceResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Price != 0D) {
+        Price = other.Price;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
             break;
-          }
-          case 82: {
-            choices_.AddEntriesFrom(input, _repeated_choices_codec);
+          case 9: {
+            Price = input.ReadDouble();
             break;
           }
         }
@@ -686,7 +1147,7 @@ namespace Formpackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

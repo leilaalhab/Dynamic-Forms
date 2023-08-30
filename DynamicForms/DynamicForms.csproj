@@ -1,79 +1,24 @@
-
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-
-  
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
- 
-  <ItemGroup>
-    <Protobuf Include="Protos\form.proto" GrpcServices="Server" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-<PackageReference Include="Google.Protobuf" Version="3.24.2" />
-    <PackageReference Include="Google.Protobuf.Tools" Version="3.24.2" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
-    <PackageReference Include="Moq" Version="4.20.2" />
-    <PackageReference Include="protobuf-net" Version="3.2.26" />
-    <PackageReference Include="Spillman.SignalR.Protobuf" Version="1.0.4" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.6" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SQLServer" Version="7.0.9" />
-    <PackageReference Include="MongoDB.Driver" Version="2.20.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Data\" />
-    <None Remove="Models\" />
-    <None Remove="Dtos\" />
-    <None Remove="Dtos\Input\" />
-    <None Remove="Dtos\Form\" />
-    <None Remove="Dtos\Choice\" />
-    <None Remove="Dtos\Step\" />
-    <None Remove="Controllers\" />
-    <None Remove="Services\" />
-    <None Remove="Services\ChoiceService\" />
-    <None Remove="Services\FormService\" />
-    <None Remove="Services\InputService\" />
-    <None Remove="Services\StepService\" />
-    <None Remove="Filter\" />
-    <None Remove="Protos\connect.proto" />
-    <None Remove="Protos\boz.proto" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Dtos\Input\" />
-    <Folder Include="Dtos\Form\" />
-    <Folder Include="Dtos\Choice\" />
-    <Folder Include="Dtos\Step\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Services\" />
-    <Folder Include="Services\ChoiceService\" />
-    <Folder Include="Services\FormService\" />
-    <Folder Include="Services\InputService\" />
-    <Folder Include="Services\StepService\" />
-    <Folder Include="Filter\" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+        <PackageReference Include="Google.protobuf" Version="3.24.2" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SQLServer" Version="7.0.10" />
+        <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    </ItemGroup>
 
 </Project>

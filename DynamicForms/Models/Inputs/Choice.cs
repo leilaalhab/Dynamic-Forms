@@ -5,7 +5,7 @@ namespace DynamicForms.Models
 	{
         public int Id { get; set; }
 		public int InputId { get; set; }
-		public string? Label { get; set; }
+		public string Label { get; set; } = string.Empty;
 	}
 }
 

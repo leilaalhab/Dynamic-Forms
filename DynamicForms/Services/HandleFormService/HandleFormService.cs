@@ -6,6 +6,8 @@ using DynamicForms.Services.FormService;
 using DynamicForms.Models.Answers;
 using DynamicForms.Dtos.Progress;
 using DynamicForms.Services.StepService;
+using Formpackage;
+using InputValueRequest = Formpackage.InputValueRequest;
 
 namespace DynamicForms.Services.HandleFormService
 {
@@ -17,9 +19,8 @@ namespace DynamicForms.Services.HandleFormService
         private readonly IFormService _FormService;
         private readonly IAnswerService _AnswerService;
         private readonly IStepService _StepService;
-        private readonly IMapper _mapper;
 
-        public HandleFormService(IInputService inputService, IConditionService conditionService, IProgressService progressService, IFormService formService, IAnswerService answerService, IStepService stepService, IMapper mapper)
+        public HandleFormService(IInputService inputService, IConditionService conditionService, IProgressService progressService, IFormService formService, IAnswerService answerService, IStepService stepService)
         {
             _InputService = inputService;
             _ConditionService = conditionService;
@@ -27,11 +28,12 @@ namespace DynamicForms.Services.HandleFormService
             _FormService = formService;
             _AnswerService = answerService;
             _StepService = stepService;
-            _mapper = mapper;
         }
 
         public bool DoesFormExist(int formId)
         {
+            if (formId == 0)
+                throw new Exception("Form Id is Invalid");
             var form = _FormService.GetForm(formId).Result;
             if (form.Success)
                 return true;
@@ -48,7 +50,8 @@ namespace DynamicForms.Services.HandleFormService
             var inputs = inputsUnwrapped.Select(
                 c => new InputWrapper
                 {
-                    Input = c
+                    Input = c,
+                    Index = c.Order,
                 }
             ).ToArray();
 
@@ -65,6 +68,54 @@ namespace DynamicForms.Services.HandleFormService
             else
                 return null;
         }
+
+        public InputInvalidResponse GenerateInputValidityResponse(InputWrapper input)
+        {
+            
+            var response = new InputInvalidResponse();
+            response.Index = input.Index;
+            if (input.Error is not null)
+            {
+                response.Error = input.Error.Value;
+                response.ErrorValue = input.ErrorValue;
+            }
+        
+            if (input.TextValue is not null)
+                response.TextValue = input.TextValue;
+            if (input.Value is not null)
+                response.NumValue = input.Value.Value;
+
+            return response;
+        }
+
+        public InputResponse GenerateInputResponse(InputWrapper input)
+        {
+            input.Interacted = true;
+            var response =  new InputResponse
+            {
+                Index = input.Index,
+                InputType = input.Input.InputType,
+                Label = input.Input.Label,
+                Placeholder = input.Input.Placeholder,
+            };
+            if (input.Input.Choices is not null)
+                response.Choices.AddRange(MapChoices(input.Input.Choices));
+            
+            return response;
+        }
+
+        private List<SendChoice> MapChoices(List<Choice> choices)
+        {
+            var mappedChoices = new List<SendChoice>();
+            foreach (var choice in choices)
+            {
+                mappedChoices.Add( new SendChoice { Id = choice.Id, Label = choice.Label});
+            }
+
+            return mappedChoices;
+        }
+        
+        
 
         public async Task<int?> GetNextStep(int stepId)
         {
@@ -128,7 +179,7 @@ namespace DynamicForms.Services.HandleFormService
 
                 foreach (var Req in requirements)
                 {
-                    if (!CheckRequirement(Req, input.Value, input))
+                    if (!CheckRequirement(Req, input.Value.Value, input))
                     {
                         InvalidInputs.Add(input);
                         break;
@@ -143,11 +194,11 @@ namespace DynamicForms.Services.HandleFormService
             return await _ConditionService.GetConditionsWithInput(InputId);
         }
 
-        public bool CheckCondition(Requirement req, Request request, InputWrapper input)
+        public bool CheckCondition(Requirement req, InputValueRequest request, InputWrapper input)
         {
             if (string.IsNullOrEmpty(request.TextValue))
             {
-                if (!CheckRequirement(req, request.Value, input))
+                if (!CheckRequirement(req, request.NumValue, input))
                     return false;
             }
             else
@@ -155,58 +206,19 @@ namespace DynamicForms.Services.HandleFormService
                 if (!CheckRequirement(req, request.TextValue.Length, input))
                     return false;
             }
-
+        
             input.Input.IsVisible = true;
             return true;
         }
-
-        public GetInputDto ReturnResponse(InputWrapper input)
-        {
-            var response = new GetInputDto
-            {
-                Id = input.Input.Id,
-                Order = input.Input.Order,
-                Label = input.Input.Label,
-                Placeholder = input.Input.Placeholder,
-                Choices = _mapper.Map<List<GetChoiceDto>>(input.Input.Choices),
-                Value = input.Value.ToString(),
-            };
-
-            if (input.Error != ErrorType.NoError)
-            {
-                response.errorType = input.Error;
-                response.errorValue = input.ErrorValue.ToString();
-            }
-
-            return response;
-        }
-
-        public Response GenerateResponse(InputWrapper input, ResponseType responseType)
-        {
-            var res = new Response
-            {
-                Id = input.Input.Id,
-                Label = input.Input.Label,
-                Placeholder = input.Input.Placeholder,
-                InpType = input.Input.InputType,
-                ErrorValue = input.ErrorValue,
-                Value = input.Value,
-                TextValue = input.TextValue,
-                ResponseType = responseType,
-            };
-            if (input.Error != ErrorType.NoError)
-            {
-                res.Error = input.Error;
-            }
-
-            return res;
-        }
-
+        
+  
+        
+       
         public bool IsInputValid(InputWrapper input, double requestValue, string requestText)
         {
             input.Interacted = true;
             double value;
-
+        
             if (string.IsNullOrEmpty(requestText))
             {
                 value = requestValue;
@@ -215,11 +227,11 @@ namespace DynamicForms.Services.HandleFormService
             {
                 value = requestText.Length;
             }
-
+        
             if (input.Input.Requirements is null)
                 return true;
-
-
+        
+        
             foreach (var req in input.Input.Requirements)
             {
                 if (!CheckRequirement(req, value, input))
@@ -229,14 +241,14 @@ namespace DynamicForms.Services.HandleFormService
                 }
                 else
                 {
-                    input.Error = ErrorType.NoError;
-                    input.Value = 0;
+                    input.Error = null;
+                    input.Value = null;
                 }
             }
-
+        
             return true;
         }
-
+        
         public static bool CheckRequirement(Requirement requirement, double value, InputWrapper input)
         {
             switch (requirement.Type)
@@ -247,21 +259,21 @@ namespace DynamicForms.Services.HandleFormService
                     input.Error = ErrorType.Equal;
                     input.ErrorValue = requirement.Value;
                     return false;
-
+        
                 case ConditionType.NotEqual:
                     if (value != requirement.Value)
                         return true;
                     input.Error = ErrorType.NotEqual;
                     input.ErrorValue = requirement.Value;
                     return false;
-
+        
                 case ConditionType.LessThan:
                     if (value < requirement.Value)
                         return true;
                     input.Error = ErrorType.LessThan;
                     input.ErrorValue = requirement.Value;
                     return false;
-
+        
                 case ConditionType.GreaterThan:
                     if (value > requirement.Value)
                         return true;
@@ -271,14 +283,14 @@ namespace DynamicForms.Services.HandleFormService
             }
             return false;
         }
-
+        
         public async Task SaveValues(InputWrapper[] inputs, int progressid)
         {
-
+        
             var textAnswers = new List<TextAnswer>();
             var doubleAnswers = new List<DoubleAnswer>();
             var intAnswers = new List<IntegerAnswer>();
-
+        
             foreach (var input in inputs)
             {
                 if (input.Interacted == true)
@@ -298,7 +310,7 @@ namespace DynamicForms.Services.HandleFormService
                         {
                             InputId = input.Input.Id,
                             ProgressId = progressid,
-                            Value = input.Value
+                            Value = input.Value.Value
                         });
                     }
                     else
@@ -311,7 +323,7 @@ namespace DynamicForms.Services.HandleFormService
                         });
                     }
                 }
-
+        
             }
             await _AnswerService.AddAllAnswers(textAnswers, doubleAnswers, intAnswers);
         }

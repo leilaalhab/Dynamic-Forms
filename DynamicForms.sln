@@ -1,11 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1706.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicForms", "DynamicForms\DynamicForms.csproj", "{57D291F8-F205-4B2F-9191-3917FCEC62DF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicFormsTests", "DynamicFormsTests\DynamicFormsTests.csproj", "{BE51190A-E2A3-4175-A9B9-42F89E86D318}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicForms", "DynamicForms\DynamicForms.csproj", "{D4C97BF7-CA3F-4900-8547-5934A9CAA59D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{57D291F8-F205-4B2F-9191-3917FCEC62DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57D291F8-F205-4B2F-9191-3917FCEC62DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57D291F8-F205-4B2F-9191-3917FCEC62DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57D291F8-F205-4B2F-9191-3917FCEC62DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE51190A-E2A3-4175-A9B9-42F89E86D318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE51190A-E2A3-4175-A9B9-42F89E86D318}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE51190A-E2A3-4175-A9B9-42F89E86D318}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE51190A-E2A3-4175-A9B9-42F89E86D318}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DD4543E1-2719-4286-A644-BB3D9C846F86}
+		{D4C97BF7-CA3F-4900-8547-5934A9CAA59D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4C97BF7-CA3F-4900-8547-5934A9CAA59D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4C97BF7-CA3F-4900-8547-5934A9CAA59D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4C97BF7-CA3F-4900-8547-5934A9CAA59D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

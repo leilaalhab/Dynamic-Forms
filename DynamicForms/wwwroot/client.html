@@ -4,57 +4,45 @@
 <script src="wsconnection.js"></script>
 
 
-
-
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>SignalR JavaScript Client</title>
 </head>
 
 <body>
-    <h1>SignalR JavaScript Client</h1>
-    <p id="stateLabel">Ready to connect...</p>
-    <div>
+<h1>SignalR JavaScript Client</h1>
+<p id="stateLabel">Ready to connect...</p>
+<div>
 
 
-        <button onclick="StartForm()">Start Form</button>
+    <button onclick="StartForm()">Start Form</button>
 
 
-         <label>Form ID :</label> <input type="number" step="1" id="form_id" required>
-        <br>
-        <label for="progress_id">Progress ID:</label> <input type="number" step="1" id="progress_id">
-        <br>
-        <label id="priceLabel" >Price: </label>
-            <h2 id="Inputs">Inputs </h2>
-            <div id="inputs_list">
-             
-                <!-- Add inputs  -->
+    <label for="form_id">Form ID :</label> <input type="number" step="1" id="form_id" required>
+    <br>
+    <label for="progress_id">Progress ID:</label> <input type="number" step="1" id="progress_id">
+    <br>
+    <label id="priceLabel">Price: </label>
+    <h2 id="Inputs">Inputs </h2>
+    <div id="inputs_list">
+                
+        <!-- Add inputs  -->
 
-            </div>
-        <br>
-        <button type="button" onclick="previousStep()">Previous Step</button>
-        <button type="button" onclick="nextStep()">Next Step</button>
-        <br>
-        <button type="submit" form="inputs_form">Submit Form</button>
-
-
-
-        <button onclick="disconnect()">Disconnect</button>
     </div>
+    <br>
+    <button type="button" onclick="PreviousStep()">Previous Step</button>
+    <button type="button" onclick="NextStep()">Next Step</button>
+    <br>
+    <button type="button" onclick="SubmitForm()">Submit Form</button>
+    <h2 id="Errors">Errors </h2>
+    <div id="errors_list">
 
- 
+        <!-- Add errors  -->
+
+    </div>
+    <button onclick="Disconnect()">Disconnect</button>
+    <label id="messageLabel">Success: Message: </label>
+</div>
 </body>
-
-<script>
-    var form_id = document.getElementById("form_id");
-    
-    var progress_id = document.getElementById("progress_id");
-    var Connect = document.getElementById("stateLabel")
-    var InputP = document.getElementById("InputLabel")
-    var temp = document.getElementById("temp")
-
-</script>
-
-
 
 </html>

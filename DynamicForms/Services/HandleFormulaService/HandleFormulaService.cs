@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DynamicForms.Models;
 using DynamicForms.Services.FormulaService;
 
 namespace DynamicForms.Services.HandleFormulaService
@@ -240,7 +235,7 @@ namespace DynamicForms.Services.HandleFormulaService
             if (node.Type == NodeType.Variable)
             {
                 if (node.InputId is not null)
-                    return FindInputWithId(node.InputId.Value).Value;
+                    return FindInputWithId(node.InputId.Value).Value.Value;
                 else
                     throw new Exception("Node does not have InputId.");
             }

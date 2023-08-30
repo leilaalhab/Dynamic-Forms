@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DynamicForms.Filter;
 using DynamicForms.Models;
 using Microsoft.EntityFrameworkCore;
-using ProtoBuf.Meta;
 
 namespace DynamicForms.Services.InputService
 {
@@ -104,7 +103,7 @@ namespace DynamicForms.Services.InputService
                 var input = new Input
                 {
                     Label = newInput.Label,
-                    InputType = newInput.InputType,
+                    //InputType = newInput.InputType,
                     Placeholder = newInput.Placeholder,
                     Step = step,
                     StepId = newInput.StepId,
@@ -147,7 +146,7 @@ namespace DynamicForms.Services.InputService
 
                 input.Label = updatedInput.Label;
                 input.Placeholder = updatedInput.Placeholder;
-                input.InputType = updatedInput.Type;
+                //input.InputType = updatedInput.Type;
 
                 if  (input.Order < updatedInput.Order)
                 {

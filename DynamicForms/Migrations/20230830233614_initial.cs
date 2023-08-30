@@ -5,11 +5,26 @@
 namespace DynamicForms.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "DoubleAnswers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Value = table.Column<double>(type: "float", nullable: false),
+                    InputId = table.Column<int>(type: "int", nullable: false),
+                    ProgressId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoubleAnswers", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Forms",
                 columns: table => new
@@ -21,6 +36,21 @@ namespace DynamicForms.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Forms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IntegerAnswers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Value = table.Column<int>(type: "int", nullable: false),
+                    InputId = table.Column<int>(type: "int", nullable: false),
+                    ProgressId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IntegerAnswers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,6 +68,21 @@ namespace DynamicForms.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TextAnswers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InputId = table.Column<int>(type: "int", nullable: false),
+                    ProgressId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TextAnswers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Steps",
                 columns: table => new
                 {
@@ -45,7 +90,9 @@ namespace DynamicForms.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FormId = table.Column<int>(type: "int", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
-                    Label = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Label = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PreviousStep = table.Column<int>(type: "int", nullable: true),
+                    NextStep = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,29 +106,6 @@ namespace DynamicForms.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Answer",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    InputId = table.Column<int>(type: "int", nullable: false),
-                    ProgressId = table.Column<int>(type: "int", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DoubleValue = table.Column<double>(type: "float", nullable: true),
-                    TextValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Answer", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Answer_Progresses_ProgressId",
-                        column: x => x.ProgressId,
-                        principalTable: "Progresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Inputs",
                 columns: table => new
                 {
@@ -89,8 +113,8 @@ namespace DynamicForms.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StepId = table.Column<int>(type: "int", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
-                    Label = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Placeholder = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Label = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Placeholder = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InputType = table.Column<int>(type: "int", nullable: false),
                     IsVisible = table.Column<bool>(type: "bit", nullable: false),
@@ -114,7 +138,7 @@ namespace DynamicForms.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InputId = table.Column<int>(type: "int", nullable: false),
-                    Label = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Label = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,11 +193,6 @@ namespace DynamicForms.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answer_ProgressId",
-                table: "Answer",
-                column: "ProgressId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Choices_InputId",
                 table: "Choices",
                 column: "InputId");
@@ -203,16 +222,22 @@ namespace DynamicForms.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Answer");
-
-            migrationBuilder.DropTable(
                 name: "Choices");
 
             migrationBuilder.DropTable(
                 name: "Conditions");
 
             migrationBuilder.DropTable(
+                name: "DoubleAnswers");
+
+            migrationBuilder.DropTable(
+                name: "IntegerAnswers");
+
+            migrationBuilder.DropTable(
                 name: "Progresses");
+
+            migrationBuilder.DropTable(
+                name: "TextAnswers");
 
             migrationBuilder.DropTable(
                 name: "Requirements");

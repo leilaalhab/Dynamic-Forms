@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Formpackage;
+using InputValueRequest = Formpackage.InputValueRequest;
 
 namespace DynamicForms.Services.HandleFormService
 {
@@ -12,10 +14,10 @@ namespace DynamicForms.Services.HandleFormService
         Task<InputWrapper[]> SetInputs(Progress progress);
         List<InputWrapper>? GetUnchangedInputs(InputWrapper[] inputs);
         bool IsInputValid(InputWrapper input, double requestValue, string requestText);
-        bool CheckCondition(Requirement req, Request request, InputWrapper input);
+        bool CheckCondition(Requirement req, InputValueRequest request, InputWrapper input);
         Task<List<Condition>> GetDependentInputConditions(int InputId);
-        Response GenerateResponse(InputWrapper input, ResponseType responseType);
-        GetInputDto ReturnResponse(InputWrapper input);
+        InputInvalidResponse GenerateInputValidityResponse(InputWrapper input);
+        InputResponse GenerateInputResponse(InputWrapper input);
         Task<int?> GetNextStep(int stepId);
         Task<int?> GetPreviousStep(int stepId);
         Task SaveValues(InputWrapper[] inputs, int progressid);

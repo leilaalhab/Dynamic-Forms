@@ -8,7 +8,7 @@ namespace DynamicForms.Dtos.Input
         public int StepId { get; set; }
         public string? Label { get; set; }
         public string? Placeholder { get; set; }
-        public InpType InputType { get; set; }
+       // public InpType InputType { get; set; }
 	}
 }
 

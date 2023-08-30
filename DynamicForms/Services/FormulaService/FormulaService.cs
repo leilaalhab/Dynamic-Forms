@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Text.RegularExpressions;
-using DynamicForms.Filter;
-using DynamicForms.Services.InputService;
+
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using DynamicForms.Models;
-using ZstdSharp.Unsafe;
 
 namespace DynamicForms.Services.FormulaService
 {
@@ -16,11 +11,13 @@ namespace DynamicForms.Services.FormulaService
         private readonly IMapper _mapper;
         private readonly DataContext _context;
 
-        public FormulaService(DataContext context, IMapper mapper, IOptions<DynamicFormsDatabaseSettings> dynamicFormsDbSettings)
+        public FormulaService(DataContext context, IMapper mapper,
+            IOptions<DynamicFormsDatabaseSettings> dynamicFormsDbSettings)
         {
             var mongoClient = new MongoClient(dynamicFormsDbSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(dynamicFormsDbSettings.Value.DatabaseName);
-            _FormulasCollection = mongoDatabase.GetCollection<FormulaTree>(dynamicFormsDbSettings.Value.DynamicFormsCollectionName);
+            _FormulasCollection =
+                mongoDatabase.GetCollection<FormulaTree>(dynamicFormsDbSettings.Value.DynamicFormsCollectionName);
             _InputPathsCollection = mongoDatabase.GetCollection<FormulaInputPaths>("InputPaths");
             _mapper = mapper;
             _context = context;
@@ -40,6 +37,7 @@ namespace DynamicForms.Services.FormulaService
                 response.Success = false;
                 response.Message = ex.Message;
             }
+
             return response;
         }
 
@@ -56,8 +54,10 @@ namespace DynamicForms.Services.FormulaService
                 response.Success = false;
                 response.Message = ex.Message;
             }
+
             return response;
         }
+
         public async Task<ServiceResponse<GetFormulaDto>> AddFormula(AddFormulaDto newFormula)
         {
             var response = new ServiceResponse<GetFormulaDto>();
@@ -71,29 +71,32 @@ namespace DynamicForms.Services.FormulaService
                     response.Message = $"Step/Form with id {newFormula.ParentId} was not found.";
                     return response;
                 }
+
                 var tree = TreeGenerator.GenerateTreeFromExpression(newFormula.Formula);
                 tree.FormId = newFormula.ParentId;
 
                 await _FormulasCollection.InsertOneAsync(tree);
-
             }
             catch (Exception ex)
             {
                 response.Success = false;
                 response.Message = ex.Message;
             }
+
             return response;
         }
 
-        public async Task<FormulaInputPaths> GetInputPaths(int formId) {
-                        FormulaInputPaths formulaPaths = await _InputPathsCollection.Find(c => c.FormId == formId).FirstOrDefaultAsync();
-                        return formulaPaths;
-
+        public async Task<FormulaInputPaths> GetInputPaths(int formId)
+        {
+            FormulaInputPaths formulaPaths =
+                await _InputPathsCollection.Find(c => c.FormId == formId).FirstOrDefaultAsync();
+            return formulaPaths;
         }
 
         public async Task<bool[]?> GetInputPath(int formId, int InputId)
         {
-            FormulaInputPaths formulaPaths = await _InputPathsCollection.Find(c => c.FormId == formId).FirstOrDefaultAsync();
+            FormulaInputPaths formulaPaths =
+                await _InputPathsCollection.Find(c => c.FormId == formId).FirstOrDefaultAsync();
             var res = formulaPaths.Paths.FirstOrDefault(c => c.InputId == InputId);
 
             return res.Path;
@@ -101,7 +104,6 @@ namespace DynamicForms.Services.FormulaService
 
         public async Task AddInputPaths(FormulaTree tree)
         {
-
             FormulaInputPaths formulaInputPaths = new() { FormId = tree.FormId };
             List<InputPath> inputPaths = new();
 
@@ -124,7 +126,6 @@ namespace DynamicForms.Services.FormulaService
                 {
                     var input = await _context.Inputs.FirstOrDefaultAsync(c => c.Id == root.InputId);
                     inputPaths.Add(new InputPath { InputId = input.Id, Path = stack.GetArray() });
-
                 }
 
                 var temp = nodes.Pop();
@@ -137,12 +138,12 @@ namespace DynamicForms.Services.FormulaService
                     stack.Pop();
                     if (nodes.Count == 1)
                         break;
-                } else {
-
-                root = nodes.Peek().Right;
-                stack.Push(false);
                 }
-
+                else
+                {
+                    root = nodes.Peek().Right;
+                    stack.Push(false);
+                }
             } while (nodes.Count > 0);
 
             formulaInputPaths.Paths = inputPaths.ToArray();
@@ -166,7 +167,6 @@ namespace DynamicForms.Services.FormulaService
 
         public async Task<ServiceResponse<GetFormulaDto>> UpdateFormula(UpdateFormulaDto updatedFormula)
         {
-
             var response = new ServiceResponse<GetFormulaDto>();
 
             FormulaTree newTree = TreeGenerator.GenerateTreeFromExpression(updatedFormula.Formula);
@@ -174,6 +174,7 @@ namespace DynamicForms.Services.FormulaService
             {
                 throw new Exception($"Formula with Id {updatedFormula.Id} was not found.");
             }
+
             await _FormulasCollection.FindOneAndReplaceAsync(x => x.Id == updatedFormula.Id, newTree);
 
             return response;
@@ -187,6 +188,5 @@ namespace DynamicForms.Services.FormulaService
 
             return response;
         }
-
     }
 }
