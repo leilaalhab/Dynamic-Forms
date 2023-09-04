@@ -2,7 +2,7 @@ namespace DynamicForms.Models
 {
     public enum ResponseType
     {
-        FormValid = 1,
+        Message = 1,
         StepChangeValid,
         Input,
         Price,

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DynamicForms.Services.ConditionService
 {
@@ -13,9 +9,10 @@ namespace DynamicForms.Services.ConditionService
         public ConditionService(DataContext context) {
             _context = context;
         }
-        public async Task<List<Condition>> GetConditionsWithInput(int InputId)
+        public async Task<List<Condition>> GetConditionsWithInput(int inputId)
         {
-            return await _context.Conditions.Include(c => c.Requirement).Where(r => r.Requirement.InputId == InputId).ToListAsync();
+            return  await _context.Conditions.Where(c => c.Requirements.Any(r => r.InputId == inputId)).ToListAsync();
+
         }
     }
 }

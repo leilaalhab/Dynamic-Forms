@@ -25,70 +25,75 @@ namespace DynamicForms.Controllers
         public async Task<ActionResult<PagedServiceResponse<GetStepDto>>> GetAllSteps([FromQuery] PaginationFilter filter)
         {
             var response = await _StepService.GetAllSteps(filter);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
 
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<GetStepDto>>> GetStep(int Id)
         {
             var response = await _StepService.GetStep(Id);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
 
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<GetStepDto>>> AddStep(AddStepDto newStep)
         {
             var response = await _StepService.AddStep(newStep);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
 
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetStepDto>>> UpdateStep(UpdateStepDto updatedStep)
         {
             var response = await _StepService.UpdateStep(updatedStep);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
 
         [HttpDelete]
         public async Task<ActionResult<ServiceResponse<int>>> DeleteStep(int Id)
         {
             var response = await _StepService.DeleteStep(Id);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
     }
 }

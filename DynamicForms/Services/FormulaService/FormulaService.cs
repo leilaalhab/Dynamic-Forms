@@ -86,10 +86,10 @@ namespace DynamicForms.Services.FormulaService
             return response;
         }
 
-        public async Task<FormulaInputPaths> GetInputPaths(int formId)
+        public async Task<FormulaInputPaths> GetInputPaths(int stepId)
         {
             FormulaInputPaths formulaPaths =
-                await _InputPathsCollection.Find(c => c.FormId == formId).FirstOrDefaultAsync();
+                await _InputPathsCollection.Find(c => c.FormId == stepId).FirstOrDefaultAsync();
             return formulaPaths;
         }
 

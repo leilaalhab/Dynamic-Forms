@@ -243,10 +243,10 @@ namespace DynamicForms.Services.HandleFormulaService
                 return node.Value;
         }
 
-        private InputWrapper FindInputWithId(int InputId)
+        private InputWrapper FindInputWithId(int inputId)
         {
             if (inputs is not null)
-                return inputs.FirstOrDefault(r => r.Input.Id == InputId) ?? throw new Exception($"Input with Id {InputId} was not found.");
+                return inputs.FirstOrDefault(r => r.Input.Id == inputId) ?? throw new Exception($"Input with Id {inputId} was not found.");
             else
                 throw new Exception("inputs not initialized when calculating price.");
         }

@@ -22,70 +22,75 @@ namespace DynamicForms.Controllers
         public async Task<ActionResult<PagedServiceResponse<GetFormDto>>> GetAllForms([FromQuery] PaginationFilter filter)
         {
             var response = await _FormService.GetAllForms(filter);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
 
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<GetFormDto>>> GetForm(int Id)
         {
             var response = await _FormService.GetForm(Id);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
 
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<GetFormDto>>> AddForm(AddFormDto newForm)
         {
             var response = await _FormService.AddForm(newForm);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
 
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetFormDto>>> UpdateForm(UpdateFormDto updatedForm)
         {
             var response = await _FormService.UpdateForm(updatedForm);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
 
         [HttpDelete]
         public async Task<ActionResult<ServiceResponse<int>>> DeleteForm(int Id)
         {
             var response = await _FormService.DeleteForm(Id);
-            if (response.Success)
+            switch (response.StatusCode)
             {
-                return Ok(response);
+                case 200: return Ok(response);
+                case 201: return Created("", response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
             }
-            else
-            {
-                return BadRequest(response);
-            }
+
+            return BadRequest(response);
         }
     }
 }

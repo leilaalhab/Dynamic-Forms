@@ -7,7 +7,6 @@ using DynamicForms.Models.Answers;
 using DynamicForms.Dtos.Progress;
 using DynamicForms.Services.StepService;
 using Formpackage;
-using InputValueRequest = Formpackage.InputValueRequest;
 
 namespace DynamicForms.Services.HandleFormService
 {
@@ -30,11 +29,9 @@ namespace DynamicForms.Services.HandleFormService
             _StepService = stepService;
         }
 
-        public bool DoesFormExist(int formId)
+        public async Task<bool> DoesFormExist(int formId)
         {
-            if (formId == 0)
-                throw new Exception("Form Id is Invalid");
-            var form = _FormService.GetForm(formId).Result;
+            var form = (await _FormService.GetForm(formId));
             if (form.Success)
                 return true;
             return false;
@@ -61,17 +58,17 @@ namespace DynamicForms.Services.HandleFormService
 
         public async Task<int?> GetPreviousStep(int stepId)
         {
-            var Step = await _StepService.GetStep(stepId);
+            var step = await _StepService.GetStep(stepId);
 
-            if (Step.Data is not null)
-                return Step.Data.NextStep;
+            if (step.Data is not null)
+                return step.Data.NextStep;
             else
                 return null;
         }
 
         public InputInvalidResponse GenerateInputValidityResponse(InputWrapper input)
         {
-            
+
             var response = new InputInvalidResponse();
             response.Index = input.Index;
             if (input.Error is not null)
@@ -79,7 +76,7 @@ namespace DynamicForms.Services.HandleFormService
                 response.Error = input.Error.Value;
                 response.ErrorValue = input.ErrorValue;
             }
-        
+
             if (input.TextValue is not null)
                 response.TextValue = input.TextValue;
             if (input.Value is not null)
@@ -90,8 +87,7 @@ namespace DynamicForms.Services.HandleFormService
 
         public InputResponse GenerateInputResponse(InputWrapper input)
         {
-            input.Interacted = true;
-            var response =  new InputResponse
+            var response = new InputResponse
             {
                 Index = input.Index,
                 InputType = input.Input.InputType,
@@ -100,7 +96,37 @@ namespace DynamicForms.Services.HandleFormService
             };
             if (input.Input.Choices is not null)
                 response.Choices.AddRange(MapChoices(input.Input.Choices));
-            
+
+            return response;
+        }
+
+        public bool ConditionsMet(InputWrapper input) {
+            throw new NotImplementedException();
+        }
+
+        public InputandValueResponse GenerateInputAndValueResponse(InputWrapper input)
+        {
+            var response = new InputandValueResponse
+            {
+                Index = input.Index,
+                InputType = input.Input.InputType,
+                Label = input.Input.Label,
+                Placeholder = input.Input.Placeholder,
+            };
+            if (input.Input.Choices is not null)
+                response.Choices.AddRange(MapChoices(input.Input.Choices));
+
+            if (input.Error is not null)
+            {
+                response.Error = input.Error.Value;
+                response.ErrorValue = input.ErrorValue;
+            }
+
+            if (input.TextValue is not null)
+                response.TextValue = input.TextValue;
+            if (input.Value is not null)
+                response.NumValue = input.Value.Value;
+
             return response;
         }
 
@@ -109,27 +135,24 @@ namespace DynamicForms.Services.HandleFormService
             var mappedChoices = new List<SendChoice>();
             foreach (var choice in choices)
             {
-                mappedChoices.Add( new SendChoice { Id = choice.Id, Label = choice.Label});
+                mappedChoices.Add(new SendChoice { Id = choice.Id, Label = choice.Label });
             }
 
             return mappedChoices;
         }
-        
-        
 
         public async Task<int?> GetNextStep(int stepId)
         {
-            var Step = await _StepService.GetStep(stepId);
+            var step = await _StepService.GetStep(stepId);
 
-            if (Step.Data is not null)
-                return Step.Data.NextStep;
+            if (step.Data is not null)
+                return step.Data.NextStep;
             else
                 return null;
         }
 
         public async Task<Progress> GetProgress(int formId, int progressId)
         {
-
             var progress = await _ProgressService.GetProgress(progressId);
 
             if (!progress.Success)
@@ -142,6 +165,10 @@ namespace DynamicForms.Services.HandleFormService
 
         }
 
+        public async Task<List<Answer>?> GetAnswers(int progressId)
+        {
+            return (await _AnswerService.GetAnswersWithProgressId(progressId)).Data;
+        }
         private async Task SetValues(InputWrapper[] inputs, Progress progress)
         {
             List<Answer>? answers = (await _AnswerService.GetAnswersWithProgressId(progress.Id)).Data;
@@ -149,89 +176,84 @@ namespace DynamicForms.Services.HandleFormService
             if (answers is null)
                 return;
 
-            foreach (var Answer in answers)
+            foreach (var answer in answers)
             {
-                var input = inputs.FirstOrDefault(c => c.Input.Id == Answer.InputId);
+                var input = inputs.FirstOrDefault(c => c.Input.Id == answer.InputId);
                 if (input is not null)
                 {
                     input.Input.IsVisible = true;
                     input.Interacted = true;
-                    if (Answer.GetType().Equals(typeof(TextAnswer)))
-                        input.TextValue = ((TextAnswer)Answer).Value;
-                    else if (Answer.GetType().Equals(typeof(DoubleAnswer)))
-                        input.Value = ((DoubleAnswer)Answer).Value;
+                    if (answer.GetType().Equals(typeof(TextAnswer)))
+                        input.TextValue = ((TextAnswer)answer).Value;
+                    else if (answer.GetType().Equals(typeof(DoubleAnswer)))
+                        input.Value = ((DoubleAnswer)answer).Value;
                     else
-                        input.Value = ((IntegerAnswer)Answer).Value;
+                        input.Value = ((IntegerAnswer)answer).Value;
                 }
             }
         }
-
-        public List<InputWrapper>? GetUnchangedInputs(InputWrapper[] inputs)
+        
+        public List<InputWrapper>? CheckUnchangedInputs(InputWrapper[] inputs)
         {
-            var UnchangedInputs = inputs.Where(c => c.Interacted == false).ToList();
-            List<InputWrapper> InvalidInputs = new();
-            foreach (var input in UnchangedInputs)
+            var unchangedInputs = inputs.Where(c => c.Interacted == false).ToList();
+            List<InputWrapper> invalidInputs = new();
+            foreach (var input in unchangedInputs)
             {
                 var requirements = input.Input.Requirements;
 
                 if (requirements is null)
                     return null;
 
-                foreach (var Req in requirements)
+                foreach (var req in requirements)
                 {
-                    if (!CheckRequirement(Req, input.Value.Value, input))
+                    if (!CheckRequirement(req, input.Value.Value, input))
                     {
-                        InvalidInputs.Add(input);
+                        invalidInputs.Add(input);
                         break;
                     }
                 }
             }
-            return InvalidInputs;
+            return invalidInputs;
         }
 
-        public async Task<List<Condition>> GetDependentInputConditions(int InputId)
+        public async Task<List<Condition>> GetDependentInputConditions(int inputId)
         {
-            return await _ConditionService.GetConditionsWithInput(InputId);
+            return await _ConditionService.GetConditionsWithInput(inputId);
         }
 
-        public bool CheckCondition(Requirement req, InputValueRequest request, InputWrapper input)
+        public bool CheckCondition(List<Requirement> req, int dependentInput, InputWrapper[] inputs)
         {
-            if (string.IsNullOrEmpty(request.TextValue))
+            foreach (var requirement in req)
             {
-                if (!CheckRequirement(req, request.NumValue, input))
-                    return false;
+                var input = FindInputWithId(inputs, requirement.InputId);
+                if (input.Value is not null)
+                {
+                    if (!CheckRequirement(requirement, input.Value.Value, input))
+                        return false;
+                }
+                else
+                {
+                    if (!CheckRequirement(requirement, input.TextValue.Length, input))
+                        return false;
+                } 
             }
-            else
-            {
-                if (!CheckRequirement(req, request.TextValue.Length, input))
-                    return false;
-            }
-        
-            input.Input.IsVisible = true;
+   
             return true;
         }
-        
-  
-        
-       
-        public bool IsInputValid(InputWrapper input, double requestValue, string requestText)
+
+        public bool IsInputValueValid(InputWrapper input, double? requestValue, string? requestText)
         {
             input.Interacted = true;
-            double value;
-        
-            if (string.IsNullOrEmpty(requestText))
-            {
-                value = requestValue;
-            }
-            else
-            {
-                value = requestText.Length;
-            }
-        
+
             if (input.Input.Requirements is null)
                 return true;
-        
-        
+
+            double value;
+            if (!string.IsNullOrEmpty(requestText))
+                value = requestText.Length;
+            else
+                value = requestValue.Value;
+
             foreach (var req in input.Input.Requirements)
             {
                 if (!CheckRequirement(req, value, input))
@@ -239,16 +261,13 @@ namespace DynamicForms.Services.HandleFormService
                     input.Value = value;
                     return false;
                 }
-                else
-                {
-                    input.Error = null;
-                    input.Value = null;
-                }
             }
-        
+
+            input.Error = null;
+            input.Value = null;
             return true;
         }
-        
+
         public static bool CheckRequirement(Requirement requirement, double value, InputWrapper input)
         {
             switch (requirement.Type)
@@ -259,21 +278,21 @@ namespace DynamicForms.Services.HandleFormService
                     input.Error = ErrorType.Equal;
                     input.ErrorValue = requirement.Value;
                     return false;
-        
+
                 case ConditionType.NotEqual:
                     if (value != requirement.Value)
                         return true;
                     input.Error = ErrorType.NotEqual;
                     input.ErrorValue = requirement.Value;
                     return false;
-        
+
                 case ConditionType.LessThan:
                     if (value < requirement.Value)
                         return true;
                     input.Error = ErrorType.LessThan;
                     input.ErrorValue = requirement.Value;
                     return false;
-        
+
                 case ConditionType.GreaterThan:
                     if (value > requirement.Value)
                         return true;
@@ -283,24 +302,24 @@ namespace DynamicForms.Services.HandleFormService
             }
             return false;
         }
-        
-        public async Task SaveValues(InputWrapper[] inputs, int progressid)
+
+        public async Task SaveValues(InputWrapper[] inputs, int progressId)
         {
-        
+
             var textAnswers = new List<TextAnswer>();
             var doubleAnswers = new List<DoubleAnswer>();
             var intAnswers = new List<IntegerAnswer>();
-        
+
             foreach (var input in inputs)
             {
-                if (input.Interacted == true)
+                if (input.Interacted)
                 {
                     if (input.Input.InputType == InpType.Text)
                     {
                         textAnswers.Add(new TextAnswer
                         {
                             InputId = input.Input.Id,
-                            ProgressId = progressid,
+                            ProgressId = progressId,
                             Value = input.TextValue
                         });
                     }
@@ -309,7 +328,7 @@ namespace DynamicForms.Services.HandleFormService
                         doubleAnswers.Add(new DoubleAnswer
                         {
                             InputId = input.Input.Id,
-                            ProgressId = progressid,
+                            ProgressId = progressId,
                             Value = input.Value.Value
                         });
                     }
@@ -318,14 +337,25 @@ namespace DynamicForms.Services.HandleFormService
                         intAnswers.Add(new IntegerAnswer
                         {
                             InputId = input.Input.Id,
-                            ProgressId = progressid,
+                            ProgressId = progressId,
                             Value = (int)input.Value,
                         });
                     }
                 }
-        
+
             }
             await _AnswerService.AddAllAnswers(textAnswers, doubleAnswers, intAnswers);
+        }
+
+        public async Task<List<Input>> GetFormInputs(Progress progress)
+        {
+            return (await _InputService.GetAllInputsWithStepId(progress.StepId)).Data ?? throw new Exception("Form has no inputs.");
+        }
+        
+        private InputWrapper FindInputWithId(InputWrapper[] inputs, int inputId)
+        {
+            return inputs.FirstOrDefault(r => r.Input.Id == inputId) ??
+                   throw new Exception($"Input with Id {inputId} was not found.");
         }
     }
 

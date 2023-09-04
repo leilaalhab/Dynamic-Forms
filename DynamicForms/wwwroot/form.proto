@@ -1,4 +1,3 @@
-
 syntax = "proto3";
 package formpackage;
 
@@ -10,15 +9,18 @@ message StartFormRequest {
 
 message InputValueRequest {
   int32 Index = 1;
-  InpType InputType = 2;
-  double NumValue = 3;
-  string TextValue = 4;
+  double NumValue = 2;
+  string TextValue = 3;
 }
 
 // responses
 message ValidityResponse {
   bool Valid = 1;
   string message = 2;
+}
+
+message PriceResponse {
+  double Price = 1;
 }
 
 message InputResponse {
@@ -37,8 +39,16 @@ message InputInvalidResponse {
   string textValue = 5;
 }
 
-message PriceResponse {
-  double Price = 1;
+message InputandValueResponse {
+  int32 Index = 1;
+  string Label = 2;
+  string Placeholder = 3;
+  InpType InputType = 4;
+  repeated SendChoice choices = 5;
+  ErrorType Error = 6;
+  double ErrorValue = 7;
+  double NumValue = 8;
+  string textValue = 9;
 }
 
 message SendChoice {

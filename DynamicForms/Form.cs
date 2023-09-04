@@ -24,30 +24,36 @@ namespace Formpackage {
           string.Concat(
             "ChJ3d3dyb290L2Zvcm0ucHJvdG8SC2Zvcm1wYWNrYWdlIjYKEFN0YXJ0Rm9y",
             "bVJlcXVlc3QSDgoGRm9ybUlkGAEgASgFEhIKClByb2dyZXNzSWQYAiABKAUi",
-            "cAoRSW5wdXRWYWx1ZVJlcXVlc3QSDQoFSW5kZXgYASABKAUSJwoJSW5wdXRU",
-            "eXBlGAIgASgOMhQuZm9ybXBhY2thZ2UuSW5wVHlwZRIQCghOdW1WYWx1ZRgD",
-            "IAEoARIRCglUZXh0VmFsdWUYBCABKAkiMgoQVmFsaWRpdHlSZXNwb25zZRIN",
-            "CgVWYWxpZBgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIpUBCg1JbnB1dFJlc3Bv",
-            "bnNlEg0KBUluZGV4GAEgASgFEg0KBUxhYmVsGAIgASgJEhMKC1BsYWNlaG9s",
-            "ZGVyGAMgASgJEicKCUlucHV0VHlwZRgEIAEoDjIULmZvcm1wYWNrYWdlLklu",
-            "cFR5cGUSKAoHY2hvaWNlcxgFIAMoCzIXLmZvcm1wYWNrYWdlLlNlbmRDaG9p",
-            "Y2UihQEKFElucHV0SW52YWxpZFJlc3BvbnNlEg0KBUluZGV4GAEgASgFEiUK",
-            "BUVycm9yGAIgASgOMhYuZm9ybXBhY2thZ2UuRXJyb3JUeXBlEhIKCkVycm9y",
-            "VmFsdWUYAyABKAESEAoITnVtVmFsdWUYBCABKAESEQoJdGV4dFZhbHVlGAUg",
-            "ASgJIh4KDVByaWNlUmVzcG9uc2USDQoFUHJpY2UYASABKAEiJwoKU2VuZENo",
-            "b2ljZRIKCgJJZBgBIAEoBRINCgVMYWJlbBgCIAEoCSo4CgdJbnBUeXBlEggK",
-            "BFRleHQQABILCgdJbnRlZ2VyEAESCQoFRmxvYXQQAhILCgdPcHRpb25zEAMq",
-            "UQoJRXJyb3JUeXBlEgwKCFJlcXVpcmVkEAASCQoFRXF1YWwQARIMCghOb3RF",
-            "cXVhbBACEg8KC0dyZWF0ZXJUaGFuEAMSDAoITGVzc1RoYW4QBGIGcHJvdG8z"));
+            "RwoRSW5wdXRWYWx1ZVJlcXVlc3QSDQoFSW5kZXgYASABKAUSEAoITnVtVmFs",
+            "dWUYAiABKAESEQoJVGV4dFZhbHVlGAMgASgJIjIKEFZhbGlkaXR5UmVzcG9u",
+            "c2USDQoFVmFsaWQYASABKAgSDwoHbWVzc2FnZRgCIAEoCSIeCg1QcmljZVJl",
+            "c3BvbnNlEg0KBVByaWNlGAEgASgBIpUBCg1JbnB1dFJlc3BvbnNlEg0KBUlu",
+            "ZGV4GAEgASgFEg0KBUxhYmVsGAIgASgJEhMKC1BsYWNlaG9sZGVyGAMgASgJ",
+            "EicKCUlucHV0VHlwZRgEIAEoDjIULmZvcm1wYWNrYWdlLklucFR5cGUSKAoH",
+            "Y2hvaWNlcxgFIAMoCzIXLmZvcm1wYWNrYWdlLlNlbmRDaG9pY2UihQEKFElu",
+            "cHV0SW52YWxpZFJlc3BvbnNlEg0KBUluZGV4GAEgASgFEiUKBUVycm9yGAIg",
+            "ASgOMhYuZm9ybXBhY2thZ2UuRXJyb3JUeXBlEhIKCkVycm9yVmFsdWUYAyAB",
+            "KAESEAoITnVtVmFsdWUYBCABKAESEQoJdGV4dFZhbHVlGAUgASgJIv0BChVJ",
+            "bnB1dGFuZFZhbHVlUmVzcG9uc2USDQoFSW5kZXgYASABKAUSDQoFTGFiZWwY",
+            "AiABKAkSEwoLUGxhY2Vob2xkZXIYAyABKAkSJwoJSW5wdXRUeXBlGAQgASgO",
+            "MhQuZm9ybXBhY2thZ2UuSW5wVHlwZRIoCgdjaG9pY2VzGAUgAygLMhcuZm9y",
+            "bXBhY2thZ2UuU2VuZENob2ljZRIlCgVFcnJvchgGIAEoDjIWLmZvcm1wYWNr",
+            "YWdlLkVycm9yVHlwZRISCgpFcnJvclZhbHVlGAcgASgBEhAKCE51bVZhbHVl",
+            "GAggASgBEhEKCXRleHRWYWx1ZRgJIAEoCSInCgpTZW5kQ2hvaWNlEgoKAklk",
+            "GAEgASgFEg0KBUxhYmVsGAIgASgJKjgKB0lucFR5cGUSCAoEVGV4dBAAEgsK",
+            "B0ludGVnZXIQARIJCgVGbG9hdBACEgsKB09wdGlvbnMQAypRCglFcnJvclR5",
+            "cGUSDAoIUmVxdWlyZWQQABIJCgVFcXVhbBABEgwKCE5vdEVxdWFsEAISDwoL",
+            "R3JlYXRlclRoYW4QAxIMCghMZXNzVGhhbhAEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Formpackage.InpType), typeof(global::Formpackage.ErrorType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.StartFormRequest), global::Formpackage.StartFormRequest.Parser, new[]{ "FormId", "ProgressId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.InputValueRequest), global::Formpackage.InputValueRequest.Parser, new[]{ "Index", "InputType", "NumValue", "TextValue" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.InputValueRequest), global::Formpackage.InputValueRequest.Parser, new[]{ "Index", "NumValue", "TextValue" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.ValidityResponse), global::Formpackage.ValidityResponse.Parser, new[]{ "Valid", "Message" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.PriceResponse), global::Formpackage.PriceResponse.Parser, new[]{ "Price" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.InputResponse), global::Formpackage.InputResponse.Parser, new[]{ "Index", "Label", "Placeholder", "InputType", "Choices" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.InputInvalidResponse), global::Formpackage.InputInvalidResponse.Parser, new[]{ "Index", "Error", "ErrorValue", "NumValue", "TextValue" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.PriceResponse), global::Formpackage.PriceResponse.Parser, new[]{ "Price" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.InputandValueResponse), global::Formpackage.InputandValueResponse.Parser, new[]{ "Index", "Label", "Placeholder", "InputType", "Choices", "Error", "ErrorValue", "NumValue", "TextValue" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Formpackage.SendChoice), global::Formpackage.SendChoice.Parser, new[]{ "Id", "Label" }, null, null, null)
           }));
     }
@@ -249,7 +255,6 @@ namespace Formpackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public InputValueRequest(InputValueRequest other) : this() {
       index_ = other.index_;
-      inputType_ = other.inputType_;
       numValue_ = other.numValue_;
       textValue_ = other.textValue_;
     }
@@ -270,19 +275,8 @@ namespace Formpackage {
       }
     }
 
-    /// <summary>Field number for the "InputType" field.</summary>
-    public const int InputTypeFieldNumber = 2;
-    private global::Formpackage.InpType inputType_ = 0;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Formpackage.InpType InputType {
-      get { return inputType_; }
-      set {
-        inputType_ = value;
-      }
-    }
-
     /// <summary>Field number for the "NumValue" field.</summary>
-    public const int NumValueFieldNumber = 3;
+    public const int NumValueFieldNumber = 2;
     private double numValue_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public double NumValue {
@@ -293,7 +287,7 @@ namespace Formpackage {
     }
 
     /// <summary>Field number for the "TextValue" field.</summary>
-    public const int TextValueFieldNumber = 4;
+    public const int TextValueFieldNumber = 3;
     private string textValue_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string TextValue {
@@ -317,7 +311,6 @@ namespace Formpackage {
         return true;
       }
       if (Index != other.Index) return false;
-      if (InputType != other.InputType) return false;
       if (NumValue != other.NumValue) return false;
       if (TextValue != other.TextValue) return false;
       return true;
@@ -327,7 +320,6 @@ namespace Formpackage {
     public override int GetHashCode() {
       int hash = 1;
       if (Index != 0) hash ^= Index.GetHashCode();
-      if (InputType != 0) hash ^= InputType.GetHashCode();
       if (NumValue != 0D) hash ^= NumValue.GetHashCode();
       if (TextValue.Length != 0) hash ^= TextValue.GetHashCode();
       return hash;
@@ -344,16 +336,12 @@ namespace Formpackage {
         output.WriteRawTag(8);
         output.WriteInt32(Index);
       }
-      if (InputType != 0) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) InputType);
-      }
       if (NumValue != 0D) {
-        output.WriteRawTag(25);
+        output.WriteRawTag(17);
         output.WriteDouble(NumValue);
       }
       if (TextValue.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(26);
         output.WriteString(TextValue);
       }
     }
@@ -363,9 +351,6 @@ namespace Formpackage {
       int size = 0;
       if (Index != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Index);
-      }
-      if (InputType != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) InputType);
       }
       if (NumValue != 0D) {
         size += 1 + 8;
@@ -383,9 +368,6 @@ namespace Formpackage {
       }
       if (other.Index != 0) {
         Index = other.Index;
-      }
-      if (other.InputType != 0) {
-        InputType = other.InputType;
       }
       if (other.NumValue != 0D) {
         NumValue = other.NumValue;
@@ -407,15 +389,11 @@ namespace Formpackage {
             Index = input.ReadInt32();
             break;
           }
-          case 16: {
-            inputType_ = (global::Formpackage.InpType) input.ReadEnum();
-            break;
-          }
-          case 25: {
+          case 17: {
             NumValue = input.ReadDouble();
             break;
           }
-          case 34: {
+          case 26: {
             TextValue = input.ReadString();
             break;
           }
@@ -573,6 +551,123 @@ namespace Formpackage {
 
   }
 
+  public sealed partial class PriceResponse : pb::IMessage<PriceResponse> {
+    private static readonly pb::MessageParser<PriceResponse> _parser = new pb::MessageParser<PriceResponse>(() => new PriceResponse());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<PriceResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PriceResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PriceResponse(PriceResponse other) : this() {
+      price_ = other.price_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PriceResponse Clone() {
+      return new PriceResponse(this);
+    }
+
+    /// <summary>Field number for the "Price" field.</summary>
+    public const int PriceFieldNumber = 1;
+    private double price_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double Price {
+      get { return price_; }
+      set {
+        price_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as PriceResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(PriceResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Price != other.Price) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Price != 0D) hash ^= Price.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Price != 0D) {
+        output.WriteRawTag(9);
+        output.WriteDouble(Price);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Price != 0D) {
+        size += 1 + 8;
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(PriceResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Price != 0D) {
+        Price = other.Price;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 9: {
+            Price = input.ReadDouble();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class InputResponse : pb::IMessage<InputResponse> {
     private static readonly pb::MessageParser<InputResponse> _parser = new pb::MessageParser<InputResponse>(() => new InputResponse());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -580,7 +675,7 @@ namespace Formpackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -801,7 +896,7 @@ namespace Formpackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1023,14 +1118,14 @@ namespace Formpackage {
 
   }
 
-  public sealed partial class PriceResponse : pb::IMessage<PriceResponse> {
-    private static readonly pb::MessageParser<PriceResponse> _parser = new pb::MessageParser<PriceResponse>(() => new PriceResponse());
+  public sealed partial class InputandValueResponse : pb::IMessage<InputandValueResponse> {
+    private static readonly pb::MessageParser<InputandValueResponse> _parser = new pb::MessageParser<InputandValueResponse>(() => new InputandValueResponse());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<PriceResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<InputandValueResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1039,54 +1134,165 @@ namespace Formpackage {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PriceResponse() {
+    public InputandValueResponse() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PriceResponse(PriceResponse other) : this() {
-      price_ = other.price_;
+    public InputandValueResponse(InputandValueResponse other) : this() {
+      index_ = other.index_;
+      label_ = other.label_;
+      placeholder_ = other.placeholder_;
+      inputType_ = other.inputType_;
+      choices_ = other.choices_.Clone();
+      error_ = other.error_;
+      errorValue_ = other.errorValue_;
+      numValue_ = other.numValue_;
+      textValue_ = other.textValue_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PriceResponse Clone() {
-      return new PriceResponse(this);
+    public InputandValueResponse Clone() {
+      return new InputandValueResponse(this);
     }
 
-    /// <summary>Field number for the "Price" field.</summary>
-    public const int PriceFieldNumber = 1;
-    private double price_;
+    /// <summary>Field number for the "Index" field.</summary>
+    public const int IndexFieldNumber = 1;
+    private int index_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public double Price {
-      get { return price_; }
+    public int Index {
+      get { return index_; }
       set {
-        price_ = value;
+        index_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Label" field.</summary>
+    public const int LabelFieldNumber = 2;
+    private string label_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Label {
+      get { return label_; }
+      set {
+        label_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Placeholder" field.</summary>
+    public const int PlaceholderFieldNumber = 3;
+    private string placeholder_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Placeholder {
+      get { return placeholder_; }
+      set {
+        placeholder_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "InputType" field.</summary>
+    public const int InputTypeFieldNumber = 4;
+    private global::Formpackage.InpType inputType_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Formpackage.InpType InputType {
+      get { return inputType_; }
+      set {
+        inputType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "choices" field.</summary>
+    public const int ChoicesFieldNumber = 5;
+    private static readonly pb::FieldCodec<global::Formpackage.SendChoice> _repeated_choices_codec
+        = pb::FieldCodec.ForMessage(42, global::Formpackage.SendChoice.Parser);
+    private readonly pbc::RepeatedField<global::Formpackage.SendChoice> choices_ = new pbc::RepeatedField<global::Formpackage.SendChoice>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Formpackage.SendChoice> Choices {
+      get { return choices_; }
+    }
+
+    /// <summary>Field number for the "Error" field.</summary>
+    public const int ErrorFieldNumber = 6;
+    private global::Formpackage.ErrorType error_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Formpackage.ErrorType Error {
+      get { return error_; }
+      set {
+        error_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ErrorValue" field.</summary>
+    public const int ErrorValueFieldNumber = 7;
+    private double errorValue_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double ErrorValue {
+      get { return errorValue_; }
+      set {
+        errorValue_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "NumValue" field.</summary>
+    public const int NumValueFieldNumber = 8;
+    private double numValue_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double NumValue {
+      get { return numValue_; }
+      set {
+        numValue_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "textValue" field.</summary>
+    public const int TextValueFieldNumber = 9;
+    private string textValue_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string TextValue {
+      get { return textValue_; }
+      set {
+        textValue_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as PriceResponse);
+      return Equals(other as InputandValueResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(PriceResponse other) {
+    public bool Equals(InputandValueResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Price != other.Price) return false;
+      if (Index != other.Index) return false;
+      if (Label != other.Label) return false;
+      if (Placeholder != other.Placeholder) return false;
+      if (InputType != other.InputType) return false;
+      if(!choices_.Equals(other.choices_)) return false;
+      if (Error != other.Error) return false;
+      if (ErrorValue != other.ErrorValue) return false;
+      if (NumValue != other.NumValue) return false;
+      if (TextValue != other.TextValue) return false;
       return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Price != 0D) hash ^= Price.GetHashCode();
+      if (Index != 0) hash ^= Index.GetHashCode();
+      if (Label.Length != 0) hash ^= Label.GetHashCode();
+      if (Placeholder.Length != 0) hash ^= Placeholder.GetHashCode();
+      if (InputType != 0) hash ^= InputType.GetHashCode();
+      hash ^= choices_.GetHashCode();
+      if (Error != 0) hash ^= Error.GetHashCode();
+      if (ErrorValue != 0D) hash ^= ErrorValue.GetHashCode();
+      if (NumValue != 0D) hash ^= NumValue.GetHashCode();
+      if (TextValue.Length != 0) hash ^= TextValue.GetHashCode();
       return hash;
     }
 
@@ -1097,28 +1303,101 @@ namespace Formpackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Price != 0D) {
-        output.WriteRawTag(9);
-        output.WriteDouble(Price);
+      if (Index != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Index);
+      }
+      if (Label.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Label);
+      }
+      if (Placeholder.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Placeholder);
+      }
+      if (InputType != 0) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) InputType);
+      }
+      choices_.WriteTo(output, _repeated_choices_codec);
+      if (Error != 0) {
+        output.WriteRawTag(48);
+        output.WriteEnum((int) Error);
+      }
+      if (ErrorValue != 0D) {
+        output.WriteRawTag(57);
+        output.WriteDouble(ErrorValue);
+      }
+      if (NumValue != 0D) {
+        output.WriteRawTag(65);
+        output.WriteDouble(NumValue);
+      }
+      if (TextValue.Length != 0) {
+        output.WriteRawTag(74);
+        output.WriteString(TextValue);
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Price != 0D) {
+      if (Index != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Index);
+      }
+      if (Label.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Label);
+      }
+      if (Placeholder.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Placeholder);
+      }
+      if (InputType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) InputType);
+      }
+      size += choices_.CalculateSize(_repeated_choices_codec);
+      if (Error != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Error);
+      }
+      if (ErrorValue != 0D) {
         size += 1 + 8;
+      }
+      if (NumValue != 0D) {
+        size += 1 + 8;
+      }
+      if (TextValue.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(TextValue);
       }
       return size;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(PriceResponse other) {
+    public void MergeFrom(InputandValueResponse other) {
       if (other == null) {
         return;
       }
-      if (other.Price != 0D) {
-        Price = other.Price;
+      if (other.Index != 0) {
+        Index = other.Index;
+      }
+      if (other.Label.Length != 0) {
+        Label = other.Label;
+      }
+      if (other.Placeholder.Length != 0) {
+        Placeholder = other.Placeholder;
+      }
+      if (other.InputType != 0) {
+        InputType = other.InputType;
+      }
+      choices_.Add(other.choices_);
+      if (other.Error != 0) {
+        Error = other.Error;
+      }
+      if (other.ErrorValue != 0D) {
+        ErrorValue = other.ErrorValue;
+      }
+      if (other.NumValue != 0D) {
+        NumValue = other.NumValue;
+      }
+      if (other.TextValue.Length != 0) {
+        TextValue = other.TextValue;
       }
     }
 
@@ -1130,8 +1409,40 @@ namespace Formpackage {
           default:
             input.SkipLastField();
             break;
-          case 9: {
-            Price = input.ReadDouble();
+          case 8: {
+            Index = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            Label = input.ReadString();
+            break;
+          }
+          case 26: {
+            Placeholder = input.ReadString();
+            break;
+          }
+          case 32: {
+            inputType_ = (global::Formpackage.InpType) input.ReadEnum();
+            break;
+          }
+          case 42: {
+            choices_.AddEntriesFrom(input, _repeated_choices_codec);
+            break;
+          }
+          case 48: {
+            error_ = (global::Formpackage.ErrorType) input.ReadEnum();
+            break;
+          }
+          case 57: {
+            ErrorValue = input.ReadDouble();
+            break;
+          }
+          case 65: {
+            NumValue = input.ReadDouble();
+            break;
+          }
+          case 74: {
+            TextValue = input.ReadString();
             break;
           }
         }
@@ -1147,7 +1458,7 @@ namespace Formpackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Formpackage.FormReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
