@@ -20,6 +20,5 @@ namespace DynamicForms.Services.HandleFormService
         Task<List<Answer>?> GetAnswers(int progressId);
         Task<List<Input>> GetFormInputs(Progress progress);
         InputandValueResponse GenerateInputAndValueResponse(InputWrapper input);
-        public bool ConditionsMet(InputWrapper input);
     }
 }

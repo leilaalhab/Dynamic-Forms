@@ -100,10 +100,6 @@ namespace DynamicForms.Services.HandleFormService
             return response;
         }
 
-        public bool ConditionsMet(InputWrapper input) {
-            throw new NotImplementedException();
-        }
-
         public InputandValueResponse GenerateInputAndValueResponse(InputWrapper input)
         {
             var response = new InputandValueResponse
